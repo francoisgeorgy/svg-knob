@@ -540,26 +540,6 @@
         }
 
         /**
-         * angle is in degrees (polar, 0 at 3 o'clock)
-         */
-        /*
-                function getDotCursor(endAngle) {
-                    let a_rad = endAngle * Math.PI / 180.0;
-                    // if (config.cursor_dot > 0) {
-                        let dot_position = config.radius * config.cursor_dot_position / 100.0;  // cursor is in percents
-                        let x = getViewboxX(Math.cos(a_rad) * dot_position);
-                        let y = getViewboxY(Math.sin(a_rad) * dot_position);
-                        let r = config.radius * config.cursor_dot_size / 2 / 100.0;
-                    // }
-                    return {
-                        cx: x,
-                        cy: y,
-                        r: r
-                    };
-                }
-        */
-
-        /**
          *
          * @param from_angle in [degree] in knob's coordinates
          * @param to_angle in [degree] in knob's coordinates
@@ -777,8 +757,6 @@
         function draw_cursor() {
 
             if (!config.cursor) return;
-
-            // TODO: dot cursor
 
             let p = getTrackCursor();
             if (p) {
