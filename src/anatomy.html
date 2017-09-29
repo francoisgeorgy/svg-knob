@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: sans-serif;
+        }
+        #main {
+            display: flex;
+        }
+        #main > div {
+            /*width: 100px;*/
+            background-color: #ffffff;
+            border: none;
+            margin: 0 5px;
+            text-align: center;
+            /*align-items: flex-end;*/
+        }
+        #main > div:nth-child(2n+1) {
+            width: 10vw;
+        }
+        #main > div:nth-child(2n) {
+            /*width: 10px;*/
+            font-size: 1.5rem;
+            padding-top: 96px;
+        }
+        #main > div:nth-child(2n+1) div:nth-child(2) {
+            height: 2rem;
+        }
+        #main > div:nth-child(2n+1) div:nth-child(3) {
+            padding: 5px;
+            margin-top: 5px;
+            font-family: monospace;
+            text-align: left;
+            background-color: #dddddd;
+        }
+        #main > div:nth-child(2n+1) div:nth-child(4) {
+            padding: 5px;
+            margin-top: 5px;
+            font-family: monospace;
+            text-align: left;
+            background-color: #dddddd;
+        }
+        #result {
+             width: 10vw;
+             background-color: #ffffff;
+             border: none;
+             margin-top: 10px;
+         }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div>
+            <div id="bg"></div>
+            <div>background</div>
+            <div>.knob-bg</div>
+            <div>bg_radius: 32</div>
+        </div>
+        <div>+</div>
+        <div>
+            <div id="bg-border"></div>
+            <div>background border</div>
+            <div>.knob-bg</div>
+            <div>bg_border_width: 2</div>
+        </div>
+        <div>+</div>
+        <div>
+            <div id="track-bg"></div>
+            <div>track background</div>
+            <div>.knob-track-bg</div>
+            <div>track_bg_radius: 40<br />track_bg_width: 8</div>
+        </div>
+        <div>+</div>
+        <div>
+            <div id="markers"></div>
+            <div>markers</div>
+            <div>.knob-markers</div>
+            <div>markers: 10<br />
+                markers_radius: 40<br/>
+                markers_length: 8</div>
+            markers_width: 2
+        </div>
+        <div>+</div>
+        <div>
+            <div id="track"></div>
+            <div>track</div>
+            <div>.knob-track</div>
+            <div>track_radius: 40<br />track_width: 8</div>
+        </div>
+        <div>+</div>
+        <div>
+            <div id="cursor"></div>
+            <div>cursor</div>
+            <div>.knob-cursor</div>
+            <div>cursor_radius: 18<br />
+                cursor_length: 10<br />
+                cursor_width: 4</div>
+        </div>
+        <div>+</div>
+        <div>
+            <div id="value"></div>
+            <div>value</div>
+            <div>.knob-value</div>
+            <div>font_family: 'sans-serif'<br />
+                font_size: 25</div>
+        </div>
+        <div>=</div>
+    </div>
+    <div style="display:flex;margin-top:20px">
+        <div id="result"></div>
+        <div style="margin-left:20px">
+<pre>new knob(document.getElementById('value'), {
+    track: false,
+    cursor: false,
+    bg_color: 'transparent',
+    track_bg: false,
+    bg_border_width: 0,
+    value_text: true,
+    initial_value: 42,
+    markers_width: 2
+});</pre>
+        </div>
+    </div>
+</body>
+<script type="module">
+
+    import knob from './svg-knob.js';
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        new knob(document.getElementById('bg'), {
+            track: false,
+            cursor: false,
+            track_bg: false,
+            bg_border_width: 0,
+            value_text: false
+        });
+        new knob(document.getElementById('bg-border'), {
+            track: false,
+            cursor: false,
+            track_bg: false,
+            bg_color: 'transparent',
+            bg_border_width: 2,
+            value_text: false
+        });
+
+        //TODO: add true/false for background disk
+
+        new knob(document.getElementById('track-bg'), {
+            track: false,
+            cursor: false,
+            bg_color: 'transparent',
+            bg_border_width: 0,
+            value_text: false
+        });
+        new knob(document.getElementById('markers'), {
+            track: false,
+            cursor: false,
+            bg_color: 'transparent',
+            bg_border_width: 0,
+            track_bg: false,
+            value_text: false,
+            markers: 10
+        });
+        new knob(document.getElementById('track'), {
+            cursor: false,
+            bg_color: 'transparent',
+            bg_border_width: 0,
+            track_bg: false,
+            value_text: false,
+            initial_value: 42
+        });
+        new knob(document.getElementById('cursor'), {
+            track: false,
+            bg_color: 'transparent',
+            track_bg: false,
+            bg_border_width: 0,
+            value_text: false,
+            initial_value: 42
+        });
+        new knob(document.getElementById('value'), {
+            track: false,
+            cursor: false,
+            bg_color: 'transparent',
+            track_bg: false,
+            bg_border_width: 0,
+            value_text: true,
+            initial_value: 42
+        });
+        new knob(document.getElementById('result'), {
+            initial_value: 42,
+            markers: 20,
+            markers_width: 1
+        });
+    });
+
+</script>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "svg-knob",
+  "version": "1.0.0",
+  "description": "Knob",
+  "main": "dist/svg-knob.min.js",
+  "author": "Francois Georgy",
+  "license": "MIT"
+}

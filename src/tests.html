@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+    <script src="tests.js" type="module"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        #header {
+            padding: 5px;
+            background-color: #ccc;
+            border-bottom: 1px solid #aaa;
+        }
+        #light-bg {
+            background-color: #ffffff;
+        }
+        #dark-bg {
+            background-color: #000000;
+        }
+        .grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-row-gap: 10vh;
+        }
+        .grid > div {
+            align-self: start;
+            display: flex;
+            width: 20vh;
+            border: 1px solid #aaa;
+        }
+        .knob {
+            align-self: start;
+            width: 100px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <button id="randomize">randomize</button>
+        <span id="value" style="margin-left:2em"></span>
+    </div>
+    <div id="light-bg" class="grid">
+
+        <!--
+        TODO:
+        - default
+        - full options
+        - split track
+            - with butt ends
+            - with round ends
+            - with custom gap
+        - butt ends
+        - only cursor
+        - dot cursor
+        - markers
+        - ableton-like
+        - tron-like
+        - value at bottom
+        - value resolution
+
+        - on light background
+        - on dark background
+        -->
+
+        <div>
+            <svg class="knob" id="knob1"></svg>
+            <div>Default knob</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob2"></svg><br />
+            <a href="#" id="reconf2">reconfigure</a>
+        </div>
+        <div>
+            <svg class="knob" id="knob3"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob4"></svg>
+        </div>
+        <div>
+            <!--<svg class="knob" id="knob5"></svg>-->
+            <div class="knob" id="knob5"></div>
+            <span id="v5">...</span>
+        </div>
+        <div>
+            <svg class="knob" id="knob5b"></svg>
+            <span id="v5b">...</span>
+        </div>
+        <div>
+            <svg class="knob" id="knob6"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob7"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob8"></svg>
+        </div>
+        <div class="knob" id="knob9"></div>
+        <div>
+            <svg class="knob" id="knob10"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob11"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob12"></svg>
+        </div>
+        <div>   <!-- value position -->
+            <svg class="knob" id="knob13"></svg>
+        </div>
+        <div>   <!-- value formatting -->
+            <svg class="knob" id="knob14"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob15"></svg>
+        </div>
+        <!--<div class="knob" id="knob" data-label="default">-->
+            <!--<div class="knob-menu" id="m">-->
+                <!--<div style="border-bottom: 1px solid #aaa;">-->
+                    <!--bla bla bla-->
+                <!--</div>-->
+                <!--<ul>-->
+                    <!--<li class="knob-menu-option">option 1</li>-->
+                    <!--<li class="knob-menu-option">option 2</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div id="dark-bg" class="grid">
+        <div>
+            <svg class="knob" id="knob100"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob101"></svg>
+        </div>
+    </div>
+</body>
+</html>

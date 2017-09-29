@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        #header {
+            padding: 5px;
+            background-color: #ccc;
+            border-bottom: 1px solid #aaa;
+        }
+        #light-bg {
+            background-color: #ffffff;
+        }
+        #dark-bg {
+            background-color: #000000;
+        }
+        .grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-row-gap: 5vh;
+        }
+        .grid > div {
+            align-self: start;
+            /*display: flex;*/
+            width: 16vw;
+            /*border: 1px solid #aaa;*/
+            text-align: center;
+        }
+        .knob {
+            align-self: start;
+            width: 100px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <button id="randomize">randomize</button>
+        <span id="value" style="margin-left:2em"></span>
+    </div>
+    <div id="light-bg" class="grid">
+
+        <!--
+        TODO:
+        - default
+        - full options
+        - split track
+            - with butt ends
+            - with round ends
+            - with custom gap
+        - butt ends
+        - only cursor
+        - dot cursor
+        - markers
+        - ableton-like
+        - tron-like
+        - value at bottom
+        - value resolution
+
+        - on light background
+        - on dark background
+        -->
+
+        <div>
+            <svg class="knob" id="knob-default"></svg>
+            <div>Default knob</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-with-bg"></svg>
+            <div>With a background and a cursor</div>
+        </div>
+<!--
+        <div>
+            <svg class="knob" id="knob-simple"></svg>
+        </div>
+-->
+        <div>
+            <svg class="knob" id="knob-split-butt"></svg>
+            <div>"Split" mode</div>
+        </div>
+<!--
+        <div>
+            <div class="knob" id="knob-split-round"></div>
+        </div>
+-->
+        <div>
+            <svg class="knob" id="knob-split-gap"></svg>
+            <div>With rounded edges and a bigger gap around the center value</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-dot-cursor-markers"></svg>
+            <div>Cursor, markers and background border</div>
+        </div>
+<!--
+        <div>
+            <svg class="knob" id="knob-cursor-only"></svg>
+        </div>
+-->
+<!--
+        <div>
+            <svg class="knob" id="knob-markers"></svg>
+        </div>
+-->
+        <div>
+            <svg class="knob" id="knob-value-formatted"></svg>
+            <div>Value formatted</div>
+        </div>
+<!--
+        <div>
+            <svg class="knob" id="knob-value-steps"></svg>
+        </div>
+-->
+        <div>
+            <svg class="knob" id="knob-value-bottom"></svg>
+            <div>Value at the bottom</div>
+        </div>
+<!--
+        <div>
+            <svg class="knob" id="knob-ableton"></svg>
+            <div>"Ableton" like</div>
+        </div>
+-->
+    </div>
+    <div id="dark-bg" class="grid">
+        <div>
+            <svg class="knob" id="knob-tron"></svg>
+        </div>
+        <div>
+            <!-- example of knob used in the Bass Station II Web interface application -->
+            <svg class="knob" id="knob-bs2"></svg>
+        </div>
+    </div>
+</body>
+<script type="module">
+
+    import knob from './svg-knob.js';
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        new knob(document.getElementById('knob-default'));
+
+        new knob(document.getElementById('knob-with-bg'), {
+//            track: true,
+            cursor: true,
+            bg: true,
+            track_bg: true,
+//            bg_color: 'transparent',
+//            bg_border_width: 2,
+//            value_text: false
+        });
+
+        //TODO: add true/false for background disk
+
+//        new knob(document.getElementById('knob-simple'), {
+//            track: false,
+//            cursor: false,
+//            bg_color: 'transparent',
+//            bg_border_width: 0,
+//            value_text: false
+//        });
+        new knob(document.getElementById('knob-split-butt'), {
+            center_zero: true,
+            value_min:-100,
+            value_max:100
+        });
+//        new knob(document.getElementById('knob-split-round'), {
+//            center_zero: true,
+//            value_min:-100,
+//            value_max:100,
+//            linecap: 'round',
+//        });
+        new knob(document.getElementById('knob-split-gap'), {
+            center_zero: true,
+            angle_min: 20,
+            angle_max: 340,
+            value_min:-100,
+            value_max:100,
+            linecap: 'round',
+            center_gap: 30,
+//            angle_min: 45,
+//            angle_max: 360-45,
+            track_bg_width: 15,
+            track_bg_radius: 35,
+            track_width: 15,
+            track_radius: 35
+        });
+        new knob(document.getElementById('knob-dot-cursor-markers'), {
+            bg: true,
+            bg_color: 'transparent',
+            bg_radius: 35,
+            bg_border_width: 3,
+            track_bg: false,
+            track: false,
+            cursor: true,
+            cursor_radius: 26,
+            cursor_width: 10,
+            cursor_length: 0,
+            cursor_color_init: '#555',
+            cursor_color: '#555',
+            linecap: 'round',
+            markers: 30,
+            markers_radius: 39,
+            markers_length: 7,
+            markers_width: 1,
+            initial_value: 42
+        });
+//        new knob(document.getElementById('knob-cursor-only'), {
+//            initial_value: 42,
+//            markers: 20,
+//            markers_width: 1
+//        });
+//        new knob(document.getElementById('knob-markers'), {
+//            initial_value: 42,
+//            markers: 20,
+//            markers_width: 1
+//        });
+        new knob(document.getElementById('knob-value-formatted'), {
+            format: v => v.toLocaleString(undefined, {style: 'currency', currency: 'EUR'}),
+            font_size: 20,
+            initial_value: 42
+        });
+//        new knob(document.getElementById('knob-value-steps'), {
+//            initial_value: 42,
+//            markers: 20,
+//            markers_width: 1
+//        });
+        new knob(document.getElementById('knob-value-bottom'), {
+            angle_min: 20,
+            angle_max: 340,
+            bg: false,
+            track_bg_radius: 45,
+            track_bg_width: 6,
+            linecap: 'butt',
+            track_radius: 45,
+            track_width: 6,
+            cursor: true,
+            cursor_radius: 1,          // same unit as radius
+            cursor_length: 47,
+            cursor_width: 6,
+            value_position: 112,
+            font_size: 20,
+            initial_value: 42
+        });
+//        new knob(document.getElementById('knob-ableton'), {
+//
+//            initial_value: 42
+//        });
+    });
+
+</script>
+</html>
