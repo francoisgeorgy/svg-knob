@@ -1,8 +1,11 @@
 {
   "name": "svg-knob",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A flexible and customizable knob for your web applications.",
-  "keywords": ["svg", "knob"],
+  "keywords": [
+    "svg",
+    "knob"
+  ],
   "main": "dist/svg-knob.min.js",
   "repository": "https://github.com/francoisgeorgy/svg-knob.git",
   "bugs": "https://github.com/francoisgeorgy/svg-knob/issues",
