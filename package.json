@@ -3,6 +3,19 @@
   "version": "1.0.0",
   "description": "Knob",
   "main": "dist/svg-knob.min.js",
-  "author": "Francois Georgy",
-  "license": "MIT"
+  "repository": "https://github.com/francoisgeorgy/svg-knob.git",
+  "author": "Francois Georgy <francois.georgy@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack --config webpack.dev.js",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "babel-minify-webpack-plugin": "^0.2.0",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2",
+    "webpack-merge": "^4.1.0"
+  }
 }
