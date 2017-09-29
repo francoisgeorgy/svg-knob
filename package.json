@@ -1,11 +1,15 @@
 {
   "name": "svg-knob",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Knob",
   "main": "dist/svg-knob.min.js",
   "repository": "https://github.com/francoisgeorgy/svg-knob.git",
   "author": "Francois Georgy <francois.georgy@gmail.com>",
   "license": "MIT",
+  "files": [
+    "README.md",
+    "dist/svg-knob.min.js"
+  ],
   "scripts": {
     "dev": "webpack --config webpack.dev.js",
     "start": "webpack-dev-server --open --config webpack.dev.js",
