@@ -1,6 +1,6 @@
 {
   "name": "svg-knob",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Knob",
   "main": "dist/svg-knob.min.js",
   "repository": "https://github.com/francoisgeorgy/svg-knob.git",
