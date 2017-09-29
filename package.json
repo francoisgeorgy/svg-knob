@@ -1,10 +1,12 @@
 {
   "name": "svg-knob",
   "version": "1.0.2",
-  "description": "Knob",
+  "description": "A flexible and customizable knob for your web applications.",
+  "keywords": ["svg", "knob"],
   "main": "dist/svg-knob.min.js",
   "repository": "https://github.com/francoisgeorgy/svg-knob.git",
-  "author": "Francois Georgy <francois.georgy@gmail.com>",
+  "bugs": "https://github.com/francoisgeorgy/svg-knob/issues",
+  "author": "Francois Georgy <francois.georgy@gmail.com> (http://sysex.io)",
   "license": "MIT",
   "files": [
     "README.md",
