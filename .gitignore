@@ -60,3 +60,9 @@ typings/
 # dotenv environment variables file
 .env
 
+/README.0.md
+/src/envelope_old.js
+/src/knob_with_label.js
+/src/debug.html
+/src/knob_old.js
+/src/envelope.js
