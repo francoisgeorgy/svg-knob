@@ -1,10 +1,8 @@
-# synth-ui
+# svg-knob
 
-Web UI components for building synthesizer and midi tools and applications
+A flexible and customizable knob for your web applications.
 
-# knob
-
-### Usage
+## Usage
 
     .knob {
         width: 100px;
@@ -12,24 +10,20 @@ Web UI components for building synthesizer and midi tools and applications
 
     <svg class="knob" id="knob"></svg>
 
-    <script type="text/javascript">
-        var k = new knob(document.getElementById('knob'), {});        
+    <script type="module">
+        import knob from './svg-knob.js';
+        var k = new knob(document.getElementById('knob'), { /* config... */ });        
     </script>
 
-# envelope
+## Options
 
-### Usage
+TODO...
 
-## FIXME
+## Built With
 
-- Do not draw cursor on back arc.
+TODO...
 
-## TODO
+## License
 
-- presets
-- non-stop rotation, like a jog-dial
-- split track true/false for zero-centered knobs
-- back arc outside the "value" arc, also with own start and end angles.
-- "smart" features
-- make the label zone optional
-- use speech API to annouce a change of the value
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
