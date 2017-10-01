@@ -11,7 +11,7 @@ module.exports = merge(common, {
         }, /*pluginOpts*/ {})
     ],
     output: {
-        filename: './svg-knob.min.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        filename: './svg-knob.min.js'
     }
 });
