@@ -45,6 +45,9 @@
         // Formula: polar-angle = 270 - knob-angle
         //
 
+        if (!elem) {
+            throw 'You must pass a DOM node reference to the Knob constructor';
+        }
 
         const TRACE = false;    // when true, will log more details in the console
 
