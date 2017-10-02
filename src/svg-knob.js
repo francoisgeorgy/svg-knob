@@ -45,6 +45,9 @@
         // Formula: polar-angle = 270 - knob-angle
         //
 
+        if (!elem) {
+            throw 'You must pass a DOM node reference to the Knob constructor';
+        }
 
         const TRACE = false;    // when true, will log more details in the console
 
@@ -77,7 +80,7 @@
         // For the user convenience, the label can be set with the "data-label" attribute.
         // If another label is set in data-config then this later definition will override data-label.
         // let default_label = svg_element.dataset.label !== undefined ? svg_element.dataset.label : '';
-        let default_label = elem.dataset.label !== undefined ? elem.dataset.label : '';
+        let label = elem.dataset.label !== undefined ? elem.dataset.label : false;
 
         let defaults = {
 
@@ -85,8 +88,7 @@
 
             // No camelCase because we want to be able to have the same name in data- attributes.
 
-            label: default_label,
-            with_label: false,
+            label: false,
 
             rotation: CW,
 
@@ -171,7 +173,7 @@
         // Terminates the SVG element setup:
 
         let viewbox_height;
-        if (config.with_label || (config.value_position >= (100 - (config.font_size / 2)))) {
+        if (config.label || (config.value_position >= (100 - (config.font_size / 2)))) {
             // make some room for the label or the value that we want to display below the knob
             viewbox_height = 120;
         } else {
