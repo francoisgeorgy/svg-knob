@@ -49,7 +49,7 @@
             throw 'You must pass a DOM node reference to the Knob constructor';
         }
 
-        const TRACE = false;    // when true, will log more details in the console
+        let trace = false;    // when true, will log more details in the console; use enableDebug(), disableDebug() to change
 
         // It is faster to access a property than to access a variable...
         // See https://jsperf.com/vars-vs-props-speed-comparison/1
@@ -335,7 +335,7 @@
         function knobToPolarAngle(angle) {
             let a = config.zero_at - angle;
             if (a < 0) a = a + 360.0;
-            if (TRACE) console.log(`knobToPolarAngle ${angle} -> ${a}`);
+            if (trace) console.log(`knobToPolarAngle ${angle} -> ${a}`);
             return a;
         }
 
@@ -346,7 +346,7 @@
          */
         function polarToKnobAngle(angle) {
             // "-" for changing CCW to CW
-            if (TRACE) console.log(`polarToKnobAngle ${angle} -> ${(config.zero_at - angle + 360.0) % 360.0}`);
+            if (trace) console.log(`polarToKnobAngle ${angle} -> ${(config.zero_at - angle + 360.0) % 360.0}`);
             return (config.zero_at - angle + 360.0) % 360.0;    // we add 360 to handle negative values down to -360
         }
 
@@ -380,7 +380,7 @@
             let angle_rad = Math.atan2(dy, dx);
             if (angle_rad < 0) angle_rad = 2.0*Math.PI + angle_rad;
 
-            if (TRACE) console.log(`mouseUpdate: position in svg = ${dxPixels}, ${dyPixels} pixels; ${dx.toFixed(3)}, ${dy.toFixed(3)} rel.; angle ${angle_rad.toFixed(3)} rad`);
+            if (trace) console.log(`mouseUpdate: position in svg = ${dxPixels}, ${dyPixels} pixels; ${dx.toFixed(3)}, ${dy.toFixed(3)} rel.; angle ${angle_rad.toFixed(3)} rad`);
 
             setAngle(polarToKnobAngle(angle_rad * 180.0 / Math.PI), true);
 
@@ -394,7 +394,7 @@
          */
         function startDrag(e) {
 
-            if (TRACE) console.log('startDrag');
+            if (trace) console.log('startDrag');
 
             e.preventDefault();
 
@@ -448,7 +448,7 @@
          *
          */
         function endDrag() {
-            if (TRACE) console.log('endDrag');
+            if (trace) console.log('endDrag');
             document.removeEventListener('mousemove', handleDrag, false);
             document.removeEventListener('mouseup', endDrag, false);
         }
@@ -505,7 +505,7 @@
          *
          */
         function notifyChange() {
-            if (TRACE) console.log('knob value has changed');
+            if (trace) console.log('knob value has changed');
             let value = getValue();     // TODO: cache the value
             let event = new CustomEvent('change', {'detail': value});
             //svg_element.dispatchEvent(event);
@@ -549,7 +549,7 @@
          */
         function getArc(from_angle, to_angle, radius) {
 
-            if (TRACE) console.group(`getArc(${from_angle}, ${to_angle}, ${radius})`);
+            if (trace) console.group(`getArc(${from_angle}, ${to_angle}, ${radius})`);
 
             // SVG d: "A rx,ry xAxisRotate LargeArcFlag,SweepFlag x,y".
             // SweepFlag is either 0 or 1, and determines if the arc should be swept in a clockwise (1), or anti-clockwise (0) direction
@@ -575,8 +575,8 @@
 
             let p = `M ${x0},${y0} A ${radius},${radius} 0 ${large_arc},${arc_direction} ${x1},${y1}`;
 
-            if (TRACE) console.groupEnd();
-            if (TRACE) console.log("arc: " + p);
+            if (trace) console.groupEnd();
+            if (trace) console.log("arc: " + p);
 
             return p;
         }
@@ -592,6 +592,7 @@
             if (config.center_zero) {
 
                 if (getValue() === config.center_value) {
+                    if (trace) console.log('getTrackPath: center position, track not drawn');
                     // track is not drawn when the value is at center
                     return p;
                 }
@@ -764,7 +765,6 @@
             if (p) {
                 svg_cursor = document.createElementNS(NS, "path");
                 svg_cursor.setAttributeNS(null, "d", p);
-                // svg_cursor.setAttribute("stroke", `${config.cursor_color}`);
                 svg_cursor.setAttribute("stroke", `${config.cursor_color_init}`);
                 svg_cursor.setAttribute("stroke-width", `${config.cursor_width}`);
                 svg_cursor.setAttribute("fill", "transparent");
@@ -783,7 +783,6 @@
 
             svg_value_text = document.createElementNS(NS, "text");
             svg_value_text.setAttributeNS(null, "x", `${HALF_WIDTH}`);
-            // svg_value_text.setAttributeNS(null, "y", `${HALF_HEIGHT + config.font_size / 3}`);   // 3 is an empirical value
             svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
             svg_value_text.setAttribute("text-anchor", "middle");
             svg_value_text.setAttribute("cursor", "default");
@@ -863,6 +862,12 @@
                 config = Object.assign({}, defaults, conf, new_config);
                 init();
                 draw();
+            },
+            enableDebug: function() {
+                trace = true;
+            },
+            disableDebug: function() {
+                trace = false;
             }
         };
 

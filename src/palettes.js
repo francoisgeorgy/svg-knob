@@ -1,5 +1,7 @@
 "use strict";
 
+//TODO: make _init attributes optional
+
 export default {
     lightgray : {
         bg_color: '#E0E0E0',
