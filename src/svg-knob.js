@@ -285,7 +285,8 @@
          * @returns {number}
          */
         function getValue(a) {
-            let v = (((a || angle) - config.angle_min) / (config.angle_max - config.angle_min)) * (config.value_max - config.value_min) + config.value_min;
+            let p = a === undefined ? angle : a;
+            let v = ((p - config.angle_min) / (config.angle_max - config.angle_min)) * (config.value_max - config.value_min) + config.value_min;
             return getRoundedValue(v);
         }
 
@@ -532,7 +533,7 @@
          */
         function getViewboxCoord(angle, radius) {
             let a = angle * Math.PI / 180.0;
-            let r = radius || config.track_radius;
+            let r = radius === undefined ? config.track_radius : radius;
             let x = Math.cos(a) * r;
             let y = Math.sin(a) * r;
             return {
