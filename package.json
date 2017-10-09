@@ -1,31 +1,31 @@
 {
-  "name": "svg-knob",
-  "version": "1.0.6",
-  "description": "A flexible and customizable knob for your web applications.",
-  "keywords": [
-    "svg",
-    "knob"
-  ],
-  "main": "dist/svg-knob.min.js",
-  "module": "src/svg-knob.js",
-  "repository": "https://github.com/francoisgeorgy/svg-knob.git",
-  "bugs": "https://github.com/francoisgeorgy/svg-knob/issues",
-  "author": "François Georgy <francois.georgy@gmail.com> (http://sysex.io)",
-  "license": "MIT",
-  "files": [
-    "README.md",
-    "dist/svg-knob.min.js"
-  ],
-  "scripts": {
-    "dev": "webpack --config webpack.dev.js",
-    "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "devDependencies": {
-    "babel-minify-webpack-plugin": "^0.2.0",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.8.2",
-    "webpack-merge": "^4.1.0"
-  }
+    "name": "svg-knob",
+    "version": "1.0.6",
+    "description": "A flexible and customizable knob for your web applications.",
+    "keywords": [
+        "svg",
+        "knob"
+    ],
+    "main": "dist/svg-knob.min.js",
+    "module": "src/svg-knob.js",
+    "repository": "https://github.com/francoisgeorgy/svg-knob.git",
+    "bugs": "https://github.com/francoisgeorgy/svg-knob/issues",
+    "author": "François Georgy <francois.georgy@gmail.com> (http://sysex.io)",
+    "license": "MIT",
+    "files": [
+        "README.md",
+        "dist/svg-knob.min.js"
+    ],
+    "scripts": {
+        "dev": "webpack --config webpack.dev.js",
+        "start": "webpack-dev-server --open --config webpack.dev.js",
+        "build": "webpack --config webpack.prod.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "babel-minify-webpack-plugin": "^0.2.0",
+        "webpack": "^3.6.0",
+        "webpack-dev-server": "^2.8.2",
+        "webpack-merge": "^4.1.0"
+    }
 }

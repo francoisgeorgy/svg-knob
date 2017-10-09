@@ -1,46 +1,41 @@
 <!doctype html>
 <html>
+<meta charset="utf-8">
+<title>svg-knob anatomy</title>
+<meta name="description" content="Shows the different parts that compose svg-knob">
 <head>
+    <script src="dist/svg-knob.min.js"></script>
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #eeeeee;
             font-family: sans-serif;
         }
         #main {
             display: flex;
         }
         #main > div {
-            /*width: 100px;*/
-            background-color: #ffffff;
             border: none;
             margin: 0 5px;
             text-align: center;
-            /*align-items: flex-end;*/
         }
         #main > div:nth-child(2n+1) {
             width: 10vw;
         }
-        #main > div:nth-child(2n) {
-            /*width: 10px;*/
-            font-size: 1.5rem;
-            padding-top: 96px;
+        svg {
+            background-color: #ffffff;
         }
-        #main > div:nth-child(2n+1) div:nth-child(2) {
-            height: 2rem;
+        #main > div:nth-child(2n) {
+        }
+        #main > div:nth-child(2n+1) div:nth-child(1) {
+            font-size: 1.0rem;
+            height: 3rem;
+            text-align: center;
         }
         #main > div:nth-child(2n+1) div:nth-child(3) {
-            padding: 5px;
-            margin-top: 5px;
+            margin-top: 1rem;
             font-family: monospace;
-            text-align: left;
-            background-color: #dddddd;
-        }
-        #main > div:nth-child(2n+1) div:nth-child(4) {
-            padding: 5px;
-            margin-top: 5px;
-            font-family: monospace;
-            text-align: left;
-            background-color: #dddddd;
+            font-size: 0.8rem;
+            text-align: center;
         }
         #result {
              width: 10vw;
@@ -51,148 +46,158 @@
     </style>
 </head>
 <body>
+    <h2>svg-knob anatomy:</h2>
     <div id="main">
         <div>
+            <div>background:</div>
             <div id="bg"></div>
-            <div>background</div>
             <div>.knob-bg</div>
-            <div>bg_radius: 32</div>
         </div>
-        <div>+</div>
+        <div></div>
         <div>
+            <div>background border:</div>
             <div id="bg-border"></div>
-            <div>background border</div>
             <div>.knob-bg</div>
-            <div>bg_border_width: 2</div>
         </div>
-        <div>+</div>
+        <div></div>
         <div>
+            <div>track background:</div>
             <div id="track-bg"></div>
-            <div>track background</div>
             <div>.knob-track-bg</div>
-            <div>track_bg_radius: 40<br />track_bg_width: 8</div>
         </div>
-        <div>+</div>
+        <div></div>
         <div>
+            <div>markers:</div>
             <div id="markers"></div>
-            <div>markers</div>
             <div>.knob-markers</div>
-            <div>markers: 10<br />
-                markers_radius: 40<br/>
-                markers_length: 8</div>
-            markers_width: 2
         </div>
-        <div>+</div>
+        <div></div>
         <div>
+            <div>track:</div>
             <div id="track"></div>
-            <div>track</div>
             <div>.knob-track</div>
-            <div>track_radius: 40<br />track_width: 8</div>
         </div>
-        <div>+</div>
+        <div></div>
         <div>
+            <div>cursor:</div>
             <div id="cursor"></div>
-            <div>cursor</div>
             <div>.knob-cursor</div>
-            <div>cursor_radius: 18<br />
-                cursor_length: 10<br />
-                cursor_width: 4</div>
         </div>
-        <div>+</div>
+        <div></div>
         <div>
+            <div>value:</div>
             <div id="value"></div>
-            <div>value</div>
             <div>.knob-value</div>
-            <div>font_family: 'sans-serif'<br />
-                font_size: 25</div>
         </div>
-        <div>=</div>
+        <div></div>
     </div>
+    <h2>Result:</h2>
     <div style="display:flex;margin-top:20px">
         <div id="result"></div>
         <div style="margin-left:20px">
-<pre>new knob(document.getElementById('value'), {
-    track: false,
-    cursor: false,
-    bg_color: 'transparent',
-    track_bg: false,
-    bg_border_width: 0,
-    value_text: true,
-    initial_value: 42,
-    markers_width: 2
-});</pre>
+<pre>new Knob('#result', {
+    bg: true,
+    track: true,
+    track_bg: true,
+    cursor: true,
+    markers: 20,
+    markers_width: 1,
+    initial_value: 42
+});
+</pre>
         </div>
     </div>
 </body>
-<script type="module">
+<script>
 
-    import knob from './svg-knob.js';
+//    import knob from './svg-knob.js';
 
-    document.addEventListener("DOMContentLoaded", function(event) {
-        new knob(document.getElementById('bg'), {
+    document.addEventListener("DOMContentLoaded", function() {
+
+        new Knob('#bg', {
+            bg: true,
             track: false,
-            cursor: false,
             track_bg: false,
+            cursor: false,
             bg_border_width: 0,
             value_text: false
         });
-        new knob(document.getElementById('bg-border'), {
+
+        new Knob('#bg-border', {
+            bg: true,
             track: false,
-            cursor: false,
             track_bg: false,
+            cursor: false,
             bg_color: 'transparent',
-            bg_border_width: 2,
+            bg_border_width: 1,
             value_text: false
         });
 
-        //TODO: add true/false for background disk
-
-        new knob(document.getElementById('track-bg'), {
+        new Knob('#track-bg', {
+            bg: false,
             track: false,
+            track_bg: true,
             cursor: false,
             bg_color: 'transparent',
             bg_border_width: 0,
             value_text: false
         });
-        new knob(document.getElementById('markers'), {
+
+        new Knob('#markers', {
+            bg: false,
             track: false,
+            track_bg: false,
             cursor: false,
             bg_color: 'transparent',
             bg_border_width: 0,
-            track_bg: false,
             value_text: false,
-            markers: 10
+            markers: 20,
+            markers_width: 1
         });
-        new knob(document.getElementById('track'), {
+
+        new Knob('#track', {
+            bg: false,
+            track: true,
+            track_bg: false,
             cursor: false,
             bg_color: 'transparent',
             bg_border_width: 0,
-            track_bg: false,
             value_text: false,
             initial_value: 42
         });
-        new knob(document.getElementById('cursor'), {
+
+        new Knob('#cursor', {
+            bg: false,
             track: false,
-            bg_color: 'transparent',
             track_bg: false,
+            cursor: true,
+            bg_color: 'transparent',
             bg_border_width: 0,
             value_text: false,
             initial_value: 42
         });
-        new knob(document.getElementById('value'), {
+
+        new Knob('#value', {
+            bg: false,
             track: false,
+            track_bg: false,
             cursor: false,
             bg_color: 'transparent',
-            track_bg: false,
             bg_border_width: 0,
             value_text: true,
             initial_value: 42
         });
-        new knob(document.getElementById('result'), {
-            initial_value: 42,
+
+        new Knob('#result', {
+            bg: true,
+            track: true,
+            track_bg: true,
+            cursor: true,
             markers: 20,
-            markers_width: 1
+            markers_width: 1,
+            initial_value: 42
         });
+
     });
 
 </script>

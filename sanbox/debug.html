@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        #light-bg {
+            background-color: #ffffff;
+        }
+        .grid {
+            padding: 5vh;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+        .knob {
+            width: 40vw;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="light-bg" class="grid">
+        <div>
+            <svg class="knob" id="knob"></svg>
+        </div>
+        <div>
+            <svg class="knob" id="knob2"></svg>
+        </div>
+    </div>
+</body>
+<script type="module">
+
+    import knob from './svg-knob.js';
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        new knob(document.getElementById('knob'), {
+            angle_min: 0,
+            angle_max: 360,
+            bg_color: 'transparent',
+            bg_radius: 48,
+            bg_border_width: 2,
+            track_bg: false,
+            cursor: false,
+            linecap: 'butt',
+            track_radius: 38,
+            track_width: 14,
+            initial_value: 42
+        });
+/*
+        new knob(document.getElementById('knob2'), {
+            center_zero: true,
+//            center_gap: 2,
+            value_min: 0,
+            value_max: 127,
+            initial_value: 63,
+            bg_color: 'transparent',
+            bg_radius: 48,
+            bg_border_width: 2,
+            track_radius: 38,
+            track_width: 14,
+            track_bg_radius: 38,
+            track_bg_width: 14,
+            cursor: true,
+            linecap: 'round'
+        });
+*/
+
+        new knob(document.getElementById('knob2'), {
+            center_zero: true,
+            value_min: 0,
+            value_max: 127,
+            center_value: 63,
+            initial_value: 63,
+            bg_color: 'transparent',
+            bg_radius: 48,
+            bg_border_width: 2,
+            track_radius: 40,
+            track_width: 8,
+            track_bg_radius: 40,
+            track_bg_width: 8,
+            cursor: true,
+            cursor_radius: 20,
+            cursor_length: 10,
+            cursor_width: 4,
+            linecap: 'round'
+        });
+
+
+    });
+
+</script>
+</html>

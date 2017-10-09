@@ -3,7 +3,7 @@
 //TODO: make _init attributes optional
 
 export default {
-    lightgray : {
+    light : {
         bg_color: '#E0E0E0',
         bg_border_color: '#BDBDBD',
         track_bg_color: '#CFD8DC',
@@ -14,7 +14,7 @@ export default {
         markers_color: '#9E9E9E',
         font_color: '#424242',
     },
-    light : {
+    light2 : {
         bg_color: '#B1DAEE',
         bg_border_color: '#569DC0',
         track_bg_color: '#B1DAEE',

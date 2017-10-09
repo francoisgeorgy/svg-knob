@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+    <script src="dist/svg-knob.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        #header {
+            padding-bottom: 6px;
+            border-bottom: 1px solid #aaa;
+            line-height: 150%;
+        }
+        #light-bg {
+            background-color: #ffffff;
+        }
+        #dark-bg {
+            background-color: #000000;
+            color: #aaa;
+        }
+        .grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-row-gap: 5vh;
+        }
+        .grid > div {
+            align-self: start;
+            /*display: flex;*/
+            width: 16vw;
+            /*border: 1px solid #aaa;*/
+            text-align: center;
+        }
+        .knob {
+            align-self: start;
+            width: 100px;
+            border: none;
+        }
+        .knob-bs2-bg {
+            fill: url("#grad");
+            stroke: var(--knob-back-border);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>svg-knob demo</h1>
+    <div id="header">
+        Click over the knob and drag to change it's value. You can also use the mouse-wheel.<br />
+        Click this <button id="randomize">randomize</button> button to randomly set the value of all knobs.
+        <span id="value" style="float:right;"></span>
+    </div>
+    <div id="light-bg" class="grid">
+        <div>
+            <svg class="knob" id="knob-default"></svg>
+            <div>Default knob<br />with 'light' theme</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-with-bg"></svg>
+            <div>With a background<br />and a cursor</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-split-butt"></svg>
+            <div>"Split" mode</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-split-gap"></svg>
+            <div>With rounded edges<br />and a bigger gap<br />around the center value</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-dot-cursor-markers"></svg>
+            <div>Cursor, markers and background border</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-value-formatted"></svg>
+            <div>Value formatted</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-value-bottom"></svg>
+            <div>Value at the bottom</div>
+        </div>
+    </div>
+    <div id="dark-bg" class="grid">
+        <div>
+            <svg class="knob" id="knob-dark-bg"></svg>
+            <div>Default knob<br />with 'dark' theme</div>
+        </div>
+        <div>
+            <!-- example of knob used in the Bass Station II Web interface application -->
+            <svg class="knob" id="knob-bs2"></svg>
+            <div>With a gradient in the background</div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1" height="0" style="display:block">
+        <defs>
+            <linearGradient id="grad" gradientTransform="rotate(65)">
+                <stop offset="0%" stop-color="#555" />
+                <stop offset="95%" stop-color="#222" />
+            </linearGradient>
+            <!--<g id="knob">-->
+                <!--<circle fill="url(#grad)" class="path" cx="50" cy="50" r="40"/>-->
+                <!--<text class="value" text-anchor="middle" x="50" y="58"></text>-->
+            <!--</g>-->
+        </defs>
+    </svg>
+</body>
+<script>
+
+//    import knob from './svg-knob.js';
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        console.log('glou2', svgKnob, typeof svgKnob);
+
+        let knobs = {};
+
+        knobs['knob-default'] = new svgKnob.svgknob('#knob-default');
+
+        knobs['knob-with-bg'] = new svgKnob('#knob-with-bg', {
+            cursor: true,
+            bg: true,
+            track_bg: true,
+        });
+
+        knobs['knob-split-butt'] = new svgKnob('#knob-split-butt', {
+            center_zero: true,
+            value_min:-100,
+            value_max:100
+        });
+
+        knobs['knob-split-gap'] = new svgKnob('#knob-split-gap', {
+            center_zero: true,
+            angle_min: 20,
+            angle_max: 340,
+            value_min:-100,
+            value_max:100,
+            linecap: 'round',
+            center_gap: 30,
+            track_bg_width: 15,
+            track_bg_radius: 35,
+            track_width: 15,
+            track_radius: 35
+        });
+
+        knobs['knob-dot-cursor-markers'] = new svgKnob('#knob-dot-cursor-markers', {
+            bg: true,
+            bg_color: 'transparent',
+            bg_radius: 35,
+            bg_border_width: 3,
+            track_bg: false,
+            track: false,
+            cursor: true,
+            cursor_radius: 26,
+            cursor_width: 10,
+            cursor_length: 0,
+            cursor_color_init: '#555',
+            cursor_color: '#555',
+            linecap: 'round',
+            markers: 30,
+            markers_radius: 39,
+            markers_length: 7,
+            markers_width: 1,
+            initial_value: 42
+        });
+
+        knobs['knob-value-formatted'] = new svgKnob('#knob-value-formatted', {
+            format: v => v.toLocaleString(undefined, {style: 'currency', currency: 'EUR'}),
+            font_size: 20,
+            initial_value: 42
+        });
+
+        knobs['knob-value-bottom'] = new svgKnob('#knob-value-bottom', {
+            angle_min: 20,
+            angle_max: 340,
+            bg: false,
+            track_bg_radius: 45,
+            track_bg_width: 6,
+            linecap: 'butt',
+            track_radius: 45,
+            track_width: 6,
+            cursor: true,
+            cursor_radius: 1,          // same unit as radius
+            cursor_length: 47,
+            cursor_width: 6,
+            value_position: 112,
+            font_size: 20,
+            initial_value: 42
+        });
+
+        knobs['knob-dark-bg'] = new svgKnob('#knob-dark-bg', {
+            palette: 'dark'
+        });
+
+
+        knobs['knob-bs2'] = new svgKnob('#knob-bs2', {
+            label: false,
+            // background disk:
+            bg_radius: 32,
+            bg_border_width: 1,
+            // track background:
+            track_bg_radius: 40,
+            track_bg_width: 8,
+            // track:
+            track_radius: 40,
+            track_width: 8,
+            // cursor
+            cursor_radius: 20,
+            cursor_length: 10,
+            cursor_width: 4,
+            // appearance:
+            palette: 'dark',
+            bg:  true,
+            track_bg: true,
+            track: true,
+            cursor: true,
+            linecap: 'round',
+            value_text: true,
+            value_position: 58,    // empirical value: HALF_HEIGHT + config.font_size / 3
+            font_family: 'sans-serif',
+            font_size: 25,
+            font_weight: 'bold',
+            markers: false,
+            class_bg: 'knob-bs2-bg',
+            class_track_bg : 'knob-track-bg',
+            class_track : 'knob-track',
+            class_value : 'knob-value',
+            class_cursor : 'knob-cursor',
+            class_markers: 'knob-markers',
+            bg_color: '#333',
+            bg_border_color: '#888',
+            track_bg_color: '#555',
+            track_color_init: '#999',
+            track_color: '#bbb',
+            cursor_color_init: '#999',
+            cursor_color: '#bbb',
+            markers_color: '#3680A4',
+            font_color: '#FFEA00'
+        });
+
+        const value_elem = document.getElementById("value");
+        const knobs_elem = document.getElementsByClassName("knob");     // knobs DOM elements
+        for (let i = 0; i < knobs_elem.length; i++) {
+            knobs_elem[i].addEventListener("change", function(event) {
+                // Event.target: a reference to the object that dispatched the event. It is different from event.currentTarget
+                //               when the event handler is called during the bubbling or capturing phase of the event.
+                value_elem.innerText = `#${event.target.id}: ${event.detail}`;
+            });
+        }
+
+        var randomize_button = document.getElementById("randomize");
+        randomize_button.addEventListener("click", function(event) {
+            Object.getOwnPropertyNames(knobs).forEach(
+                function(knob) {
+                    let v = 0;
+                    let m = Math.ceil(Math.random() * 100);
+                    let id = setInterval(frame, 10);
+                    function frame() {
+                        if (v > m) {
+                            clearInterval(id);
+                        } else {
+                            knobs[knob].value = v;
+                            v++;
+                        }
+                    }
+                }
+            );
+        });
+
+    });
+
+</script>
+</html>

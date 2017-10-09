@@ -5,7 +5,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'svg-knob.min.js',
-        library: 'svg-knob',
+        library: 'svgKnob',
         libraryTarget: 'umd'
     }
 };

@@ -70,6 +70,11 @@
         const HALF_HEIGHT = 50;     // viewBox/2
 
         let svg_element;
+
+        if (typeof elem === 'string' || elem instanceof String) {
+            elem = document.querySelector(elem);
+        }
+
         if (elem.nodeName.toLowerCase() === 'svg') {
             svg_element = elem;
         } else {
@@ -126,7 +131,7 @@
             cursor_width: 4,
 
             // appearance:
-            palette: 'lightgray',
+            palette: 'light',
             bg: false,
             track_bg: true,
             track: true,
@@ -295,6 +300,7 @@
          * @param v
          */
         function setValue(v) {
+            console.log(`setValue(${v})`);
             if (v < config.value_min) {
                 value = config.value_min;
             } else if (v > config.value_max) {
@@ -856,6 +862,7 @@
          */
         return {
             set value(v) {
+                console.log('set value ' + v);
                 setValue(v);
                 redraw();
             },
