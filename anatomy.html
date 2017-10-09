@@ -110,7 +110,11 @@
 </body>
 <script>
 
-//    import knob from './svg-knob.js';
+    // If the browser support ES6 modules:
+    //import Knob from './svg-knob.js';
+
+    // For browser that do not support ES6 modules yet:
+    let Knob = svgKnob.default;
 
     document.addEventListener("DOMContentLoaded", function() {
 

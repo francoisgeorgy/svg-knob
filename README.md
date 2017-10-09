@@ -10,9 +10,20 @@ A flexible and customizable knob for your web applications.
 
     <svg class="knob" id="knob"></svg>
 
+### Without ES6 module support:
+
+    <script src="dist/svg-knob.min.js"></script>
+    <script>
+        var Knob = svgKnob.default;
+        var k = new Knob('#knob', { /* config... */ });   
+    </script>
+
+
+### With ES6 module support:
+
     <script type="module">
-        import knob from './svg-knob.js';
-        var k = new knob(document.getElementById('knob'), { /* config... */ });        
+        import Knob from './svg-knob.js';
+        const k = new Knob('#knob', { /* config... */ });        
     </script>
 
 ## Options

@@ -5,15 +5,13 @@ const path = require('path');
 
 module.exports = merge(common, {
     plugins: [
-/*
-        new MinifyPlugin(/!*minifyOpts*!/ {
+        new MinifyPlugin(/*minifyOpts*/ {
             removeConsole: true,
             removeDebugger: true
-        }, /!*pluginOpts*!/ {})
-*/
+        }, /*pluginOpts*/ {})
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: './svg-knob.min.js'
+        filename: 'svg-knob.min.js'
     }
 });
