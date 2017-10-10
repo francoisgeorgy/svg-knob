@@ -242,13 +242,23 @@
                 // Event.target: a reference to the object that dispatched the event. It is different from event.currentTarget
                 //               when the event handler is called during the bubbling or capturing phase of the event.
                 value_elem.innerText = `#${event.target.id}: ${event.detail}`;
+
+//                let {m, n} = {m: event.target.id, n: event.detail};
+                let [m, n] = [event.target.id, event.detail];
+                console.log('yo', m, n);
             });
         }
+
+        Object.getOwnPropertyNames(knobs).forEach(
+            function(k) {
+                knobs[k].value = 42;
+            }
+        );
 
         var randomize_button = document.getElementById("randomize");
         randomize_button.addEventListener("click", function(event) {
             Object.getOwnPropertyNames(knobs).forEach(
-                function(knob) {
+                function(k) {
                     let v = 0;
                     let m = Math.ceil(Math.random() * 100);
                     let id = setInterval(frame, 10);
@@ -256,7 +266,7 @@
                         if (v > m) {
                             clearInterval(id);
                         } else {
-                            knobs[knob].value = v;
+                            knobs[k].value = v;
                             v++;
                         }
                     }
