@@ -315,6 +315,7 @@
         /**
          * Set knob's angle
          * @param new_angle in [deg]
+         * @param fire_event
          */
         function setAngle(new_angle, fire_event) {
             let prev = angle;

@@ -2,6 +2,8 @@
 
 A flexible and customizable knob for your web applications.
 
+Open the `anatomy.html` file to view a description of how the knob is constructed.
+
 ## Supported browsers
 
 The code uses ES6 features. It is not 'babelified'. More than 97% of the _global browser share_ support the ES6 features used
