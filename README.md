@@ -4,7 +4,7 @@ A flexible and customizable knob for your web applications.
 
 ## Supported browsers
 
-The code uses ES6 features. It is not 'babelified'. More than 97% of the _ global browser share_ support the ES6 features used
+The code uses ES6 features. It is not 'babelified'. More than 97% of the _global browser share_ support the ES6 features used
 in the code (checked with <http://jscc.info/>). 
 
 The code should work with these versions:
