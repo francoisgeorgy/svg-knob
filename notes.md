@@ -4,6 +4,10 @@
 - https://github.com/g200kg/webaudio-controls
 - https://www.g200kg.com/renoid/
 - https://github.com/ryoyakawai/webaudio-slider
+https://github.com/naikus/svg-gauge
+https://github.com/denilsonsa/html5-knob
+https://github.com/createbang/svg-dial
+
 
 ### knobs images
 
