@@ -1,10 +1,9 @@
 README.0.md
-src/*
 .gitignore
-webpack.*
 yarn.*
 .idea
 *.iml
+notes.md
 
 # Logs
 logs
