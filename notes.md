@@ -15,3 +15,31 @@ https://github.com/createbang/svg-dial
     - https://www.g200kg.com/jp/software/knobman.html
     - https://www.g200kg.com/en/webknobman/
     - https://www.g200kg.com/en/webknobman/gallery.php
+    
+    
+----
+
+# MISC
+
+Add ES5 support: 
+
+    yarn add --dev babel-loader babel-core
+    yarn add --dev babel-preset-es2015
+    
+create `.babelrc` with:
+    
+    {
+        "presets": ["es2015"]
+    }
+
+add in webpack config:
+
+    module: {
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader"
+        }]
+    }
+
+

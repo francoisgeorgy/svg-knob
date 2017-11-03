@@ -7,5 +7,12 @@ module.exports = {
         filename: 'svg-knob.min.js',
         library: 'svgKnob',
         libraryTarget: 'umd'
+    },
+    module: {
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader"
+        }]
     }
 };
