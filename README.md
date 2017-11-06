@@ -4,15 +4,6 @@ A flexible and customizable knob for your web applications.
 
 Open the `anatomy.html` file to view a description of how the knob is constructed.
 
-## Supported browsers
-
-The code uses ES6 features. It is not 'babelified'. More than 97% of the _global browser share_ support the ES6 features used
-in the code (checked with <http://jscc.info/>). 
-
-The code should work with these versions:
-
-- Chrome 49+, Firefox 44+, Opera 36+, Safari 10+, Edge 12+, IE 11+
-
 ## Usage
 
 Check the `demo.html` file for examples.
