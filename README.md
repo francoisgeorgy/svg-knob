@@ -39,6 +39,97 @@ Check the `demo.html` file for examples.
         let [knob_id, knob_value] = [event.target.id, event.detail];
     });    
 
+## Usage with React
+
+Quick example for a svg-knob and a linked div displaying the value transmitted through the knob's onChange event.
+
+### Simple `SvgKnob` component (2 files):
+
+`components/SvgKnob/index.jsx` :
+
+    import React, { Component } from 'react';
+    import Knob from './knob';
+
+    function Value(props) {
+        return <div className="value">{props.value}</div>;
+    }
+
+    class SvgKnobWithValueSimplerSyntax extends Component {
+
+        state = { value: 0 };
+
+        handleChange = e => this.setState({value: e.detail});
+
+        render() {
+            return (
+                <div className="knob">
+                    <Knob onChange={this.handleChange} />
+                    <Value value={this.state.value} />
+                </div>
+            );
+        }
+    }
+
+    export default SvgKnob;
+
+`components/SvgKnob/knob.jsx` :
+
+    import React, { Component } from 'react';
+    import SvgKnob from 'svg-knob';
+
+    class Knob extends Component {
+
+        handleChange = e => {if (this.props.onChange) this.props.onChange(e);};
+
+        componentDidMount() {
+            this.k = new SvgKnob(this.dom);
+            this.dom.addEventListener("change", this.handleChange);
+        }
+
+        // Not really necessary, but will slightly improve the rendering performance.
+        shouldComponentUpdate() {
+            return this.k === null;
+        }
+
+        render() {
+            return (
+                <svg ref={elem => this.dom = elem} />
+            );
+        }
+    }
+
+    export default Knob;
+
+### App:
+
+`App.js` :
+
+    import React, {Component} from 'react';
+    import './App.css';
+    import SvgKnob from "./components/SvgKnob/";
+
+    class App extends Component {
+        render() {
+            return (
+                <div className="App">
+                    <SvgKnob />
+                </div>
+            );
+        }
+    }
+
+    export default App;
+
+`App.css`:
+
+    .knob {
+        width: 100px;
+    }
+
+    .knob .value {
+        text-align: center;
+    }
+
 ## Options
 
     let defaults = {
