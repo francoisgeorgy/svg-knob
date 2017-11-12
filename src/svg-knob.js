@@ -497,16 +497,46 @@
             return false;
         }
 
+        function startTouch(e) {
+
+            if (trace) console.log('startTouch');
+
+            // e.preventDefault();
+
+            document.addEventListener('touchmove', handleTouch, false);
+            document.addEventListener('touchend', endTouch, false);
+
+        }
+
+        function handleTouch(e) {
+
+            if (trace) console.log('handleTouch', e);
+            // e.preventDefault();
+        }
+
+        /**
+         *
+         */
+        function endTouch() {
+            if (trace) console.log('endTouch');
+            document.removeEventListener('touchmove', handleTouch);
+            document.removeEventListener('touchend', endTouch);
+        }
+
         /**
          *
          */
         function attachEventHandlers() {
+            console.log('attach attachEventHandlers');
             svg_element.addEventListener("mousedown", function(e) {
                 startDrag(e);
             });
             svg_element.addEventListener("wheel", function(e) {
                 mouseWheelHandler(e);
             });
+            svg_element.addEventListener("touchstart", function(e) {
+                startTouch(e);
+            }, false);
         }
 
         /**

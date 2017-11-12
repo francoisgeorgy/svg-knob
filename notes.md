@@ -1,3 +1,18 @@
+## events
+
+    mousedown -> mouse()
+    touchstart -> touch()
+
+    touch()
+        touchmove -> touchMove()
+        touchend -> unbind touch touchmove, touchend
+
+    mouse()
+        mousemove -> mouseMove()
+        mouseup -> unbind mousemove, mouseup
+
+
+
 ## Other knob libs:
 
 - https://github.com/padenot/knob.js
@@ -16,7 +31,9 @@ https://github.com/createbang/svg-dial
     - https://www.g200kg.com/en/webknobman/
     - https://www.g200kg.com/en/webknobman/gallery.php
     
-    
+
+
+
 ----
 
 # MISC

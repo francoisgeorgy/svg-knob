@@ -1,4 +1,4 @@
-import knob from './svg-knob.js';
+import knob from '../src/svg-knob.js';
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
