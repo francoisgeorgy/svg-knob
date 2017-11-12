@@ -514,8 +514,8 @@
             //noinspection JSSuspiciousNameCombination
             arcCenterYPixels = arcCenterXPixels;
 
-            document.addEventListener('touchmove', handleTouch, false);
-            document.addEventListener('touchend', endTouch, false);
+            document.addEventListener('touchmove', handleTouch, {passive: false});
+            document.addEventListener('touchend', endTouch);
 
         }
 
@@ -556,7 +556,7 @@
          */
         function endTouch() {
             if (trace) console.log('endTouch');
-            document.removeEventListener('touchmove', handleTouch, {passive: false});
+            document.removeEventListener('touchmove', handleTouch);
             document.removeEventListener('touchend', endTouch);
         }
 
@@ -571,9 +571,7 @@
             svg_element.addEventListener("wheel", function(e) {
                 mouseWheelHandler(e);
             });
-            svg_element.addEventListener("touchstart", function(e) {
-                startTouch(e);
-            }, {passive: false});
+            svg_element.addEventListener("touchstart", startTouch, {passive: false});
         }
 
         /**
