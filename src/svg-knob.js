@@ -556,7 +556,7 @@
          */
         function endTouch() {
             if (trace) console.log('endTouch');
-            document.removeEventListener('touchmove', handleTouch);
+            document.removeEventListener('touchmove', handleTouch, {passive: false});
             document.removeEventListener('touchend', endTouch);
         }
 
@@ -573,7 +573,7 @@
             });
             svg_element.addEventListener("touchstart", function(e) {
                 startTouch(e);
-            }, false);
+            }, {passive: false});
         }
 
         /**
