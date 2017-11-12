@@ -497,21 +497,58 @@
             return false;
         }
 
+        /**
+         *
+         * @param e
+         */
         function startTouch(e) {
 
             if (trace) console.log('startTouch');
 
-            // e.preventDefault();
+            e.preventDefault(); // necessary to avoid moving all the page
+
+            targetRect = svg_element.getBoundingClientRect();
+
+            // By design, the arc center is at equal distance from top and left.
+            arcCenterXPixels = targetRect.width / 2;
+            //noinspection JSSuspiciousNameCombination
+            arcCenterYPixels = arcCenterXPixels;
 
             document.addEventListener('touchmove', handleTouch, false);
             document.addEventListener('touchend', endTouch, false);
 
         }
 
+        /**
+         *
+         * @param e
+         */
         function handleTouch(e) {
 
-            if (trace) console.log('handleTouch', e);
-            // e.preventDefault();
+            if (trace) console.log('handleTouch', e.touches);
+
+            e.preventDefault();
+
+            let touchesIndex = e.touches.length - 1;
+
+            let dxPixels = e.touches[touchesIndex].clientX - targetRect.left;
+            let dyPixels = e.touches[touchesIndex].clientY - targetRect.top;
+
+            let dx = (dxPixels - arcCenterXPixels) / (targetRect.width / 2);
+            let dy = - (dyPixels - arcCenterYPixels) / (targetRect.width / 2);  // targetRect.width car on a 20px de plus en hauteur pour le label
+
+            if (config.rotation === CCW) dx = - dx;
+
+            // convert to polar coordinates
+            let angle_rad = Math.atan2(dy, dx);
+            if (angle_rad < 0) angle_rad = 2.0*Math.PI + angle_rad;
+
+            if (trace) console.log(`handleTouch: position in svg = ${dxPixels}, ${dyPixels} pixels; ${dx.toFixed(3)}, ${dy.toFixed(3)} rel.; angle ${angle_rad.toFixed(3)} rad`);
+
+            setAngle(polarToKnobAngle(angle_rad * 180.0 / Math.PI), true);
+
+            redraw();
+
         }
 
         /**
