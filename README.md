@@ -100,7 +100,7 @@ Quick example for a svg-knob and a linked div displaying the value transmitted t
 
     export default Knob;
 
-### App:
+### React App:
 
 `App.js` :
 
@@ -130,7 +130,7 @@ Quick example for a svg-knob and a linked div displaying the value transmitted t
         text-align: center;
     }
 
-## Options
+# Options
 
     let defaults = {
         // User configurable properties. The colors are defined in the 'palettes', later on.
