@@ -1,34 +1,31 @@
 {
     "name": "svg-knob",
-    "version": "1.4.2",
+    "version": "1.5.0",
     "description": "A flexible and customizable knob for your web applications.",
     "keywords": [
         "svg",
         "knob"
     ],
-    "main": "dist/svg-knob.min.js",
-    "module": "src/svg-knob.js",
+    "main": "dist/main.js",
     "repository": "https://github.com/francoisgeorgy/svg-knob.git",
     "bugs": "https://github.com/francoisgeorgy/svg-knob/issues",
     "author": "François Georgy <francois.georgy@gmail.com> (http://sysex.io)",
     "license": "MIT",
     "files": [
         "README.md",
-        "dist/svg-knob.min.js"
+        "dist/main.js"
     ],
     "scripts": {
-        "dev": "webpack --config webpack.dev.js",
-        "start": "webpack-dev-server --open --config webpack.dev.js",
-        "build": "webpack --config webpack.prod.js",
+        "dev": "webpack --mode development",
+        "build": "webpack --mode production",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",
-        "babel-loader": "^7.1.2",
-        "babel-minify-webpack-plugin": "^0.2.0",
-        "babel-preset-es2015": "^6.24.1",
-        "webpack": "^3.6.0",
-        "webpack-dev-server": "^2.8.2",
-        "webpack-merge": "^4.1.0"
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.6.1",
+        "webpack": "^4.5.0",
+        "webpack-cli": "^2.0.14",
+        "webpack-dev-server": "^3.1.3"
     }
 }
