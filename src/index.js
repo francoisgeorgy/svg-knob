@@ -1,7 +1,9 @@
 
     "use strict";
 
-    import palettes from './palettes.js';
+    import palettes from "./palettes.js";
+
+    // FIXME: remove console usage for IE compatibility
 
     /**
      *
@@ -46,7 +48,7 @@
         //
 
         if (!elem) {
-            throw 'You must pass a DOM node reference to the Knob constructor';
+            throw "You must pass a DOM node reference to the Knob constructor";
         }
 
         let trace = false;    // when true, will log more details in the console; use enableDebug(), disableDebug() to change
@@ -71,11 +73,11 @@
 
         let svg_element;
 
-        if (typeof elem === 'string' || elem instanceof String) {
+        if (typeof elem === "string" || elem instanceof String) {
             elem = document.querySelector(elem);
         }
 
-        if (elem.nodeName.toLowerCase() === 'svg') {
+        if (elem.nodeName.toLowerCase() === "svg") {
             svg_element = elem;
         } else {
             svg_element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -84,7 +86,7 @@
 
         // For the user convenience, the label can be set with the "data-label" attribute.
         // If another label is set in data-config then this later definition will override data-label.
-        // let default_label = svg_element.dataset.label !== undefined ? svg_element.dataset.label : '';
+        // let default_label = svg_element.dataset.label !== undefined ? svg_element.dataset.label : "";
         let label = elem.dataset.label !== undefined ? elem.dataset.label : false;
 
         let defaults = {
@@ -131,32 +133,32 @@
             cursor_width: 4,
 
             // appearance:
-            palette: 'light',
+            palette: "light",
             bg: false,
             track_bg: true,
             track: true,
             cursor: false,
             // CSS class names
-            linecap: 'butt',                   // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap
+            linecap: "butt",                   // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap
             value_text: true,
             value_position: HALF_HEIGHT + 8,    // empirical value: HALF_HEIGHT + config.font_size / 3
             // value_formatting: null,          // TODO; callback function
             format: v => v,                     // formatting of the displayed value
-            font_family: 'sans-serif',
+            font_family: "sans-serif",
             font_size: 25,
 
-            font_weight: 'bold',
+            font_weight: "bold",
             markers: 0,                         // number of markers; 0 or false to disable
             markers_radius: 40,
             markers_length: 8,
             markers_width: 2,
 
-            class_bg: 'knob-bg',
-            class_track_bg : 'knob-track-bg',
-            class_track : 'knob-track',
-            class_value : 'knob-value',
-            class_cursor : 'knob-cursor',
-            class_markers: 'knob-markers',
+            class_bg: "knob-bg",
+            class_track_bg : "knob-track-bg",
+            class_track : "knob-track",
+            class_value : "knob-value",
+            class_cursor : "knob-cursor",
+            class_markers: "knob-markers",
 
             snap_to_steps: false,       // TODO
 
@@ -169,7 +171,7 @@
         //---------------------------------------------------------------------
         // Consolidate all configs:
 
-        let data_config = JSON.parse(elem.dataset.config || '{}');
+        let data_config = JSON.parse(elem.dataset.config || "{}");
         let c = Object.assign({}, defaults, palettes[defaults.palette], conf, data_config);
         // we re-assign conf and data_config for the case they override some of the palette colors.
         let config = Object.assign(c, palettes[c.palette], conf, data_config);
@@ -189,7 +191,7 @@
         svg_element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
         svg_element.setAttributeNS(null, "viewBox", `0 0 ${VIEWBOX_WIDTH} ${viewbox_height}`);
 
-        // Center of arc in knob coordinates and in ViewPort's pixels relative to the <svg> ClientBoundingRect.
+        // Center of arc in knob coordinates and in ViewPort"s pixels relative to the <svg> ClientBoundingRect.
         let arcCenterXPixels = 0;
         let arcCenterYPixels = 0; // equal to arcCenterXPixels because the knob is a circle
 
@@ -255,7 +257,7 @@
             // At the top of the knob, we leave a gap between the left and right tracks.
             // 'left_track_end_angle' and 'right_track_start_angle' are the angles that delimit this gap.
             // Only used if center_zero=true.
-            if (config.linecap === 'butt') {
+            if (config.linecap === "butt") {
                 left_track_end_angle = polarToKnobAngle(Math.acos(-config.center_gap/100.0) * 180.0 / Math.PI);
                 right_track_start_angle = polarToKnobAngle(Math.acos(config.center_gap/100.0) * 180.0 / Math.PI);
             } else {
@@ -402,7 +404,7 @@
          */
         function startDrag(e) {
 
-            if (trace) console.log('startDrag');
+            if (trace) console.log("startDrag");
 
             e.preventDefault();
 
@@ -435,8 +437,8 @@
             //noinspection JSSuspiciousNameCombination
             arcCenterYPixels = arcCenterXPixels;
 
-            document.addEventListener('mousemove', handleDrag, false);
-            document.addEventListener('mouseup', endDrag, false);
+            document.addEventListener("mousemove", handleDrag, false);
+            document.addEventListener("mouseup", endDrag, false);
 
             mouseUpdate(e);
             redraw();
@@ -456,9 +458,9 @@
          *
          */
         function endDrag() {
-            if (trace) console.log('endDrag');
-            document.removeEventListener('mousemove', handleDrag, false);
-            document.removeEventListener('mouseup', endDrag, false);
+            if (trace) console.log("endDrag");
+            document.removeEventListener("mousemove", handleDrag, false);
+            document.removeEventListener("mouseup", endDrag, false);
         }
 
         /**
@@ -503,7 +505,7 @@
          */
         function startTouch(e) {
 
-            if (trace) console.log('startTouch');
+            if (trace) console.log("startTouch");
 
             e.preventDefault(); // necessary to avoid moving all the page
 
@@ -514,8 +516,8 @@
             //noinspection JSSuspiciousNameCombination
             arcCenterYPixels = arcCenterXPixels;
 
-            document.addEventListener('touchmove', handleTouch, {passive: false});
-            document.addEventListener('touchend', endTouch);
+            document.addEventListener("touchmove", handleTouch, {passive: false});
+            document.addEventListener("touchend", endTouch);
 
         }
 
@@ -525,7 +527,7 @@
          */
         function handleTouch(e) {
 
-            if (trace) console.log('handleTouch', e.touches);
+            if (trace) console.log("handleTouch", e.touches);
 
             e.preventDefault();
 
@@ -555,16 +557,16 @@
          *
          */
         function endTouch() {
-            if (trace) console.log('endTouch');
-            document.removeEventListener('touchmove', handleTouch);
-            document.removeEventListener('touchend', endTouch);
+            if (trace) console.log("endTouch");
+            document.removeEventListener("touchmove", handleTouch);
+            document.removeEventListener("touchend", endTouch);
         }
 
         /**
          *
          */
         function attachEventHandlers() {
-            console.log('attach attachEventHandlers');
+            console.log("attach attachEventHandlers");
             svg_element.addEventListener("mousedown", function(e) {
                 startDrag(e);
             });
@@ -578,9 +580,9 @@
          *
          */
         function notifyChange() {
-            if (trace) console.log('knob value has changed');
+            if (trace) console.log("knob value has changed");
             let value = getValue();     // TODO: cache the value
-            let event = new CustomEvent('change', {'detail': value});
+            let event = new CustomEvent("change", {"detail": value});
             //svg_element.dispatchEvent(event);
             elem.dispatchEvent(event);
             if (config.onchange) {
@@ -594,7 +596,7 @@
          * @private
          */
         function _isMacOS() {
-            return ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].indexOf(window.navigator.platform) !== -1;
+            return ["Macintosh", "MacIntel", "MacPPC", "Mac68K"].indexOf(window.navigator.platform) !== -1;
         }
 
         /**
@@ -665,12 +667,12 @@
             if (config.center_zero) {
 
                 if (getValue() === config.center_value) {
-                    if (trace) console.log('getTrackPath: center position, track not drawn');
+                    if (trace) console.log("getTrackPath: center position, track not drawn");
                     // track is not drawn when the value is at center
                     return p;
                 }
 
-                // we assume the split is at 180 [deg] (knob's angle)
+                // we assume the split is at 180 [deg] (knob"s angle)
                 if (angle < 180) {
                     p = getArc(Math.min(angle, left_track_end_angle), left_track_end_angle, config.track_radius);
                 } else if (angle > 180) {
@@ -714,7 +716,7 @@
 
             if (!config.markers) return;
 
-            let p = '';
+            let p = "";
             let step = (config.angle_max - config.angle_min) / config.markers;
             for (let a = config.angle_min; a <= config.angle_max; a += step) {
                 let from = getViewboxCoord(knobToPolarAngle(a), config.markers_radius);    // getViewboxCoord(angle, radius)
@@ -928,7 +930,7 @@
          */
         return {
             set value(v) {
-                console.log('set value ' + v);
+                console.log("set value " + v);
                 setValue(v);
                 redraw();
             },
