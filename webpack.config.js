@@ -1,3 +1,5 @@
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+
 module.exports = {
     output: {
         library: "svgKnob",
@@ -12,6 +14,17 @@ module.exports = {
                     loader: "babel-loader"
                 }
             }
+        ]
+    },
+    optimization: {
+        minimizer: [
+            new UglifyJSPlugin({
+                uglifyOptions: {
+                    compress: {
+                        drop_console: true,
+                    }
+                }
+            })
         ]
     }
 };
