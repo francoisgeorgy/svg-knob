@@ -1,7 +1,7 @@
 module.exports = {
     output: {
-        library: 'svgKnob',
-        libraryTarget: 'umd'
+        library: "svgKnob",
+        libraryTarget: "umd"
     },
     module: {
         rules: [
