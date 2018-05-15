@@ -286,6 +286,16 @@
             return config.format(v);
         }
 
+
+
+        /**
+         * Trick to adjust the cursor position when the range is odd.
+         */
+        function getCursorCorrection() {
+            let isOdd = n => Math.abs(n % 2) === 1;
+            return isOdd(Math.abs(config.value_max - config.value_min)) ? 0.5 : 0;
+        }
+
         /**
          * Get the knob's value determined by the knob's position (angle)
          * @param a [deg] in knob's coordinates
@@ -294,7 +304,7 @@
         function getValue(a) {
             let p = a === undefined ? angle : a;
             let v = ((p - config.angle_min) / (config.angle_max - config.angle_min)) * (config.value_max - config.value_min) + config.value_min;
-            return getRoundedValue(v);
+            return getRoundedValue(v - getCursorCorrection());
         }
 
         /**
@@ -302,7 +312,6 @@
          * @param v
          */
         function setValue(v) {
-            console.log(`setValue(${v})`);
             if (v < config.value_min) {
                 value = config.value_min;
             } else if (v > config.value_max) {
@@ -310,7 +319,9 @@
             } else {
                 value = v;
             }
-            setAngle(((v - config.value_min) / (config.value_max - config.value_min)) * (config.angle_max - config.angle_min) + config.angle_min);
+            //console.log(`setValue(${v});`, v, config.value_min, config.value_max, config.angle_max, config.angle_min);
+            setAngle(((v + getCursorCorrection() - config.value_min) / (config.value_max - config.value_min)) * (config.angle_max - config.angle_min) + config.angle_min);
+            if (trace) console.log(`setValue(${v}) angle=` + ((v - config.value_min) / (config.value_max - config.value_min)) * (config.angle_max - config.angle_min) + config.angle_min);
             return true;
         }
 
@@ -566,7 +577,7 @@
          *
          */
         function attachEventHandlers() {
-            console.log("attach attachEventHandlers");
+            if (trace) console.log("attach attachEventHandlers");
             svg_element.addEventListener("mousedown", function(e) {
                 startDrag(e);
             });

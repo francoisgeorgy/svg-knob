@@ -1,4 +1,4 @@
-import knob from '../src/svg-knob.js';
+import knob from '../src/index.js';
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -191,6 +191,66 @@ document.addEventListener("DOMContentLoaded", function(event) {
         initial_value: 42
     });
 
+    knobs['k20'] = new knob(document.getElementById('knob20'), {
+        value_min: 0,
+        value_max: 127,
+        value_resolution: 1,
+        default_value: 63,
+        center_zero: true,
+        center_value: 63,
+        snap_to_steps: false,
+        mouse_wheel_acceleration: 1,
+        bg_radius: 32,
+        bg_border_width: 1,
+        track_bg_radius: 40,
+        track_bg_width: 8,
+        track_radius: 40,
+        track_width: 8,
+        cursor_radius: 20,
+        cursor_length: 10,
+        cursor_width: 4,
+        bg: true,
+        track_bg: true,
+        track: true,
+        cursor: true,
+        value_text: true,
+        value_position: 58,
+    });
+
+    knobs['k21'] = new knob(document.getElementById('knob21'), {
+        value_min: 0,
+        value_max: 255,
+        value_resolution: 1,
+        default_value: 127,
+        center_zero: true,
+        center_value: 127,
+        snap_to_steps: false,
+        mouse_wheel_acceleration: 1,
+        bg: true,
+        track_bg: true,
+        track: true,
+        cursor: true,
+        value_text: true,
+        value_position: 58,
+    });
+
+    knobs['k22'] = new knob(document.getElementById('knob22'), {
+        value_min: 0,
+        value_max: 100,
+        value_resolution: 1,
+        default_value: 50,
+        center_zero: true,
+        center_value: 50,
+        snap_to_steps: false,
+        mouse_wheel_acceleration: 1,
+        bg: true,
+        track_bg: true,
+        track: true,
+        cursor: true,
+        value_text: true,
+        value_position: 58,
+    });
+
     knobs['k100'] = new knob(document.getElementById('knob100'), {
         bg: false,
         cursor: false,
@@ -210,6 +270,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
             knobs[knob].value = 42;
         }
     );
+
+    knobs['k20'].enableDebug();
+    knobs['k21'].enableDebug();
+    knobs['k22'].enableDebug();
+    knobs['k20'].value = 63;
+    knobs['k21'].value = 127;
+    knobs['k22'].value = 50;
 
     const value_elem = document.getElementById("value");
     const all_knobs = document.getElementsByClassName("knob");
