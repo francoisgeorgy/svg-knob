@@ -319,7 +319,6 @@
             } else {
                 value = v;
             }
-            //console.log(`setValue(${v});`, v, config.value_min, config.value_max, config.angle_max, config.angle_min);
             setAngle(((v + getCursorCorrection() - config.value_min) / (config.value_max - config.value_min)) * (config.angle_max - config.angle_min) + config.angle_min);
             if (trace) console.log(`setValue(${v}) angle=` + ((v - config.value_min) / (config.value_max - config.value_min)) * (config.angle_max - config.angle_min) + config.angle_min);
             return true;
@@ -677,10 +676,20 @@
 
             if (config.center_zero) {
 
-                if (getValue() === config.center_value) {
-                    if (trace) console.log("getTrackPath: center position, track not drawn");
-                    // track is not drawn when the value is at center
-                    return p;
+                if (Array.isArray(config.center_value)) {
+                    // let v = getValue();
+                    // console.log('center value is an array; getValue=', getValue(), typeof v);
+                    if (config.center_value.includes(getValue())) {
+                        if (trace) console.log("getTrackPath: center position, track not drawn");
+                        // track is not drawn when the value is at center
+                        return p;
+                    }
+                } else {
+                    if (getValue() === config.center_value) {
+                        if (trace) console.log("getTrackPath: center position, track not drawn");
+                        // track is not drawn when the value is at center
+                        return p;
+                    }
                 }
 
                 // we assume the split is at 180 [deg] (knob"s angle)
@@ -921,9 +930,9 @@
                 }
             }
 
-            p = getTrackCursor();
-            if (p) {
-                if (svg_cursor) {
+            if (svg_cursor) {
+                p = getTrackCursor();
+                if (p) {
                     svg_cursor.setAttributeNS(null, "d", p);
                     if (has_changed) {
                         svg_cursor.setAttribute("stroke", `${config.cursor_color}`);
@@ -941,7 +950,6 @@
          */
         return {
             set value(v) {
-                console.log("set value " + v);
                 setValue(v);
                 redraw();
             },

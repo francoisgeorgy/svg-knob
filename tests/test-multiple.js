@@ -251,6 +251,44 @@ document.addEventListener("DOMContentLoaded", function(event) {
         value_position: 58,
     });
 
+    knobs['k23'] = new knob(document.getElementById('knob23'), {
+        value_min: 27,
+        value_max: 228,         // 228 - 27 = 201
+        value_resolution: 1,
+        default_value: 128,
+        center_zero: true,
+        center_value: [127, 128],
+        snap_to_steps: false,
+        mouse_wheel_acceleration: 1,
+        bg: true,
+        track_bg: true,
+        track: true,
+        cursor: true,
+        value_text: true,
+        value_position: 58,
+        snap_to_steps: false,
+        mouse_wheel_acceleration: 1,
+        // background disk:
+        bg_radius: 32,
+        bg_border_width: 2,
+        // track background:
+        track_bg_radius: 40,
+        track_bg_width: 8,
+        // track:
+        track_radius: 40,
+        track_width: 8,
+        // cursor
+        cursor_radius: 20,
+        cursor_length: 10,
+        cursor_width: 4,
+        // appearance:
+        bg:  true,
+        track_bg: true,
+        track: true,
+        cursor: true,
+        linecap: "round"
+    });
+
     knobs['k100'] = new knob(document.getElementById('knob100'), {
         bg: false,
         cursor: false,
@@ -277,6 +315,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     knobs['k20'].value = 63;
     knobs['k21'].value = 127;
     knobs['k22'].value = 50;
+
+    knobs['k23'].value = 128;
 
     const value_elem = document.getElementById("value");
     const all_knobs = document.getElementsByClassName("knob");
