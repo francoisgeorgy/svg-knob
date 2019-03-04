@@ -140,12 +140,19 @@
             cursor: false,
             // CSS class names
             linecap: "butt",                   // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap
+
+            // text displayed in the middle of the knob:
             value_text: true,
             value_position: HALF_HEIGHT + 8,    // empirical value: HALF_HEIGHT + config.font_size / 3
-            // value_formatting: null,          // TODO; callback function
-            format: v => v,                     // formatting of the displayed value
             font_family: "sans-serif",
             font_size: 25,
+
+            // callback to get the text to display from the current value
+            display_raw: false,                 // if true, format callback is ignored
+            format_raw: v => Math.round(v),
+            format: v => v,                     // formatting of the displayed value
+            // off_text: null,                     // text to display when raw_value = min
+            // out_of_range_text: null,            // text to display when raw_value is out of range
 
             font_weight: "bold",
             markers: 0,                         // number of markers; 0 or false to disable
@@ -236,6 +243,7 @@
         // Create the knob:
 
         init();
+        initValue();
         draw();
         attachEventHandlers();
 
@@ -245,14 +253,13 @@
          */
         function init() {
 
+            if (trace) console.log("init()");
+
             if (config.center_zero) {
                 if (!config.center_value) {
                     config.center_value = getRoundedValue((config.value_max - config.value_min) / 2 + config.value_min);
                 }
             }
-
-            // set initial value and angle:
-            setValue(config.initial_value ? config.initial_value : config.default_value);
 
             // At the top of the knob, we leave a gap between the left and right tracks.
             // 'left_track_end_angle' and 'right_track_start_angle' are the angles that delimit this gap.
@@ -266,6 +273,11 @@
             }
 
             // mouse_wheel_direction = _isMacOS() ? -1 : 1; //TODO: really necessary?
+        }
+
+        function initValue() {
+            // set initial value and angle:
+            setValue(config.initial_value ? config.initial_value : config.default_value);
         }
 
         /**
@@ -282,11 +294,10 @@
          * @returns {*}
          */
         function getDisplayValue(angle) {
+            if (trace) console.log("getDisplayValue", config.display_raw);
             let v = getValue(angle);
-            return config.format(v);
+            return config.display_raw ? config.format_raw(v) : config.format(v);
         }
-
-
 
         /**
          * Trick to adjust the cursor position when the range is odd.
@@ -672,6 +683,8 @@
          */
         function getTrackPath() {
 
+            if (trace) console.log("getTrackPath()");
+
             let p = null;
 
             if (config.center_zero) {
@@ -711,6 +724,8 @@
          */
         function draw_background() {
 
+            if (trace) console.log("draw_background()", config.bg);
+
             if (!config.bg) return;
 
             // For the use of null argument with setAttributeNS, see https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course#Scripting_in_namespaced_XML
@@ -733,6 +748,8 @@
          *
          */
         function draw_markers() {
+
+            if (trace) console.log("draw_markers()", config.markers);
 
             if (!config.markers) return;
 
@@ -776,6 +793,8 @@
          *
          */
         function draw_track_background() {
+
+            if (trace) console.log("draw_track_background()", config.track_bg);
 
             // For the use of null argument with setAttributeNS, see https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course#Scripting_in_namespaced_XML
 
@@ -824,6 +843,9 @@
          *
          */
         function draw_track() {
+
+            if (trace) console.log("draw_track()", config.track);
+
             if (!config.track) return;
             let p = getTrackPath();
             if (p) {
@@ -854,6 +876,8 @@
          */
         function draw_cursor() {
 
+            if (trace) console.log("draw_cursor()", config.cursor);
+
             if (!config.cursor) return;
 
             let p = getTrackCursor();
@@ -873,6 +897,8 @@
          *
          */
         function draw_value() {
+
+            if (trace) console.log("draw_value", config.value_text);
 
             if (!config.value_text) return;
 
@@ -894,6 +920,9 @@
          *
          */
         function draw() {
+
+            if (trace) console.log("draw()", config);
+
             draw_background();
             draw_track_background();
             draw_markers();
@@ -908,15 +937,20 @@
          */
         function redraw() {
 
+            if (trace) console.log("redraw()", config);
+
             let p = getTrackPath();
             if (p) {
                 if (svg_track) {
+                    if (trace) console.log("redraw track already exist, update d");
                     svg_track.setAttributeNS(null, "d", p);
                 } else {
+                    if (trace) console.log("redraw draw_track");
                     draw_track();
                 }
             } else {
                 if (svg_track) {
+                    if (trace) console.log("redraw track already exist, hide it");
                     svg_track.setAttributeNS(null, "d", "");    // we hide the track
                 }
             }
@@ -933,6 +967,7 @@
             if (svg_cursor) {
                 p = getTrackCursor();
                 if (p) {
+                    console.log("redraw cursor");
                     svg_cursor.setAttributeNS(null, "d", p);
                     if (has_changed) {
                         svg_cursor.setAttribute("stroke", `${config.cursor_color}`);
@@ -941,6 +976,7 @@
             }
 
             if (svg_value_text) {
+                if (trace) console.log("redraw svg_value_text");
                 svg_value_text.textContent = getDisplayValue();
             }
         }
@@ -950,14 +986,26 @@
          */
         return {
             set value(v) {
+                // console.group("value setter");
                 setValue(v);
                 redraw();
+                // console.groupEnd();
             },
             set config(new_config) {
-                config = Object.assign({}, defaults, conf, new_config);
+                // console.group("config setter");
+                config = Object.assign({}, defaults, config, new_config);
                 init();
-                draw();
+                redraw();
+                // console.groupEnd();
             },
+            setConfigValue: function(attribute, value) {
+                // console.group("setConfigValue");
+                config[attribute] = value;
+                init();
+                redraw();
+                // console.groupEnd();
+            },
+            initValue,
             enableDebug: function() {
                 trace = true;
             },

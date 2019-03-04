@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>svg-knob demo</title>
+    <meta name="description" content="svg-knob demos and examples">
+    <script src="dist/main.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        #header {
+            padding-bottom: 6px;
+            border-bottom: 1px solid #aaa;
+            line-height: 150%;
+        }
+        #light-bg {
+            background-color: #ffffff;
+        }
+        #dark-bg {
+            background-color: #000000;
+            color: #aaa;
+        }
+        .grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-row-gap: 5vh;
+        }
+        .grid > div {
+            align-self: start;
+            /*display: flex;*/
+            width: 16vw;
+            /*border: 1px solid #aaa;*/
+            text-align: center;
+        }
+        .knob {
+            align-self: start;
+            width: 100px;
+            border: none;
+        }
+        .knob-bs2-bg {
+            fill: url("#grad");
+            stroke: var(--knob-back-border);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>svg-knob demo</h1>
+    <div id="header">
+        Click over the knob and drag to change it's value. You can also use the mouse-wheel.<br />
+        Click this <button id="randomize">randomize</button> button to randomly set the value of all knobs.
+        <span id="value" style="float:right;"></span>
+    </div>
+    <div id="light-bg" class="grid">
+        <div>
+            <svg class="knob" id="knob-default"></svg>
+            <div>Default knob<br />with 'light' theme</div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1" height="0" style="display:block">
+        <defs>
+            <linearGradient id="grad" gradientTransform="rotate(65)">
+                <stop offset="0%" stop-color="#555" />
+                <stop offset="95%" stop-color="#222" />
+            </linearGradient>
+        </defs>
+    </svg>
+</body>
+<script>
+
+    // If the browser support ES6 modules:
+    //import Knob from './svg-knob.js';
+
+    // For browser that do not support ES6 modules yet:
+    let Knob = svgKnob.default;
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const k = new Knob('#knob-default');
+        k.config = {
+            // display_raw: true,
+            value_min: 0,
+            value_max: 255,
+            default_value: 0,
+            format: v => Math.round(v / 255 * 100 + 0.0)
+        };
+        k.value = 127;
+        // k.setConfigValue("display_raw", true);
+
+        /*
+                const value_elem = document.getElementById("value");
+                const knobs_elem = document.getElementsByClassName("knob");     // knobs DOM elements
+                for (let i = 0; i < knobs_elem.length; i++) {
+                    knobs_elem[i].addEventListener("change", function(event) {
+                        // Event.target: a reference to the object that dispatched the event. It is different from event.currentTarget
+                        //               when the event handler is called during the bubbling or capturing phase of the event.
+                        value_elem.innerText = `#${event.target.id}: ${event.detail}`;
+                        let [m, n] = [event.target.id, event.detail];
+                    });
+                }
+                */
+
+/*
+        let randomize_button = document.getElementById("randomize");
+        randomize_button.addEventListener("click", function(event) {
+            let v = 0;
+            let m = Math.ceil(Math.random() * 100);
+            let id = setInterval(frame, 10);
+            function frame() {
+                if (v > m) {
+                    clearInterval(id);
+                } else {
+                    k.value = v;
+                    v++;
+                }
+            }
+        });
+*/
+
+    });
+
+</script>
+</html>

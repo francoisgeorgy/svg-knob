@@ -82,6 +82,10 @@
             <svg class="knob" id="knob-value-bottom"></svg>
             <div>Value at the bottom</div>
         </div>
+        <div>
+            <svg class="knob" id="knob-misc-1"></svg>
+            <div>Another example</div>
+        </div>
     </div>
     <div id="dark-bg" class="grid">
         <div>
@@ -92,6 +96,10 @@
             <!-- example of knob used in the Bass Station II Web interface application -->
             <svg class="knob" id="knob-bs2"></svg>
             <div>With a gradient in the background</div>
+        </div>
+        <div>
+            <svg class="knob" id="knob-misc-1-dark"></svg>
+            <div>Another example</div>
         </div>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" width="1" height="0" style="display:block">
@@ -116,6 +124,8 @@
         let knobs = {};
 
         knobs['knob-default'] = new Knob('#knob-default');
+
+        knobs['knob-default'].setConfigValue("display_raw", true);
 
         knobs['knob-with-bg'] = new Knob('#knob-with-bg', {
             cursor: true,
@@ -236,6 +246,48 @@
             cursor_color: '#bbb',
             markers_color: '#3680A4',
             font_color: '#FFEA00'
+        });
+
+        knobs['knob-misc-1'] = new Knob('#knob-misc-1', {
+            bg: true,
+            bg_color: 'transparent',
+            bg_radius: 35,
+            bg_border_width: 3,
+            track_bg: false,
+            track: false,
+            cursor: true,
+            cursor_radius: 26,
+            cursor_width: 10,
+            cursor_length: 0,
+            cursor_color_init: '#555',
+            cursor_color: '#555',
+            linecap: 'round',
+            markers: 10,
+            markers_radius: 39,
+            markers_length: 7,
+            markers_width: 1,
+            initial_value: 42
+        });
+
+        knobs['knob-misc-1-dark'] = new Knob('#knob-misc-1-dark', {
+            bg: true,
+            bg_color: 'transparent',
+            bg_radius: 35,
+            bg_border_width: 2,
+            track_bg: false,
+            track: false,
+            cursor: true,
+            cursor_radius: 26,
+            cursor_width: 10,
+            cursor_length: 0,
+            cursor_color_init: '#555',
+            cursor_color: '#555',
+            linecap: 'round',
+            markers: 10,
+            markers_radius: 39,
+            markers_length: 7,
+            markers_width: 1,
+            initial_value: 42
         });
 
         const value_elem = document.getElementById("value");
