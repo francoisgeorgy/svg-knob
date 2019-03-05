@@ -967,7 +967,7 @@
             if (svg_cursor) {
                 p = getTrackCursor();
                 if (p) {
-                    console.log("redraw cursor");
+                    if (trace) console.log("redraw cursor");
                     svg_cursor.setAttributeNS(null, "d", p);
                     if (has_changed) {
                         svg_cursor.setAttribute("stroke", `${config.cursor_color}`);
