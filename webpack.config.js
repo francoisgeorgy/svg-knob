@@ -1,4 +1,4 @@
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
     output: {
@@ -15,16 +15,16 @@ module.exports = {
                 }
             }
         ]
-    },
-    optimization: {
-        minimizer: [
-            new UglifyJSPlugin({
-                uglifyOptions: {
-                    compress: {
-                        drop_console: true,
-                    }
-                }
-            })
-        ]
+    // },
+    // optimization: {
+    //     minimizer: [
+    //         new UglifyJSPlugin({
+    //             uglifyOptions: {
+    //                 compress: {
+    //                     drop_console: true,
+    //                 }
+    //             }
+    //         })
+    //     ]
     }
 };
