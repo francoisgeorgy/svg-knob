@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>svg-knob demo</title>
+    <meta name="description" content="svg-knob demos and examples">
+    <script src="dist/main.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .light {
+            background-color: #e6fffa;
+        }
+        .dark {
+            background-color: #1a202c;
+            color: #aaa;
+        }
+        .cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-content: stretch;
+            width: 100%;
+        }
+        .container {
+            padding: 100px 50px;
+        }
+        .cols div:first-child {
+            text-align: right;
+        }
+        .knob {
+            align-self: start;
+            width: 100px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>svg-knob demo</h1>
+    <div class="cols">
+        <div class="container dark">
+                <svg class="knob" id="knob-dark"></svg>
+        </div>
+        <div class="container light">
+                <svg class="knob" id="knob-light"></svg>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1" height="0" style="display:block">
+        <defs>
+            <linearGradient id="grad" gradientTransform="rotate(65)">
+                <stop offset="0%" stop-color="#555" />
+                <stop offset="95%" stop-color="#222" />
+            </linearGradient>
+        </defs>
+    </svg>
+</body>
+<script>
+
+    // If the browser support ES6 modules:
+    //import Knob from './svg-knob.js';
+
+    // For browser that do not support ES6 modules yet:
+    let Knob = svgKnob.default;
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const k1 = new Knob('#knob-dark', {
+            label: false,
+            // background disk:
+            bg_radius: 32,
+            bg_border_width: 1,
+            track_bg_radius: 40,
+            track_bg_width: 8,
+            track_radius: 40,
+            track_width: 8,
+            cursor_radius: 20,
+            cursor_length: 10,
+            cursor_width: 4,
+            // appearance:
+            palette: 'dark',
+            bg:  true,
+            track_bg: true,
+            track: true,
+            cursor: true,
+            linecap: 'round',
+            value_text: true,
+            value_position: 58,    // empirical value: HALF_HEIGHT + config.font_size / 3
+            font_family: 'sans-serif',
+            font_size: 25,
+            font_weight: 'bold',
+            markers: false,
+            class_bg: 'knob-bs2-bg',
+            class_track_bg : 'knob-track-bg',
+            class_track : 'knob-track',
+            class_value : 'knob-value',
+            class_cursor : 'knob-cursor',
+            class_markers: 'knob-markers',
+            bg_color: '#333',
+            bg_border_color: '#888',
+            track_bg_color: '#555',
+            track_color_init: '#999',
+            track_color: '#bbb',
+            cursor_color_init: '#999',
+            cursor_color: '#bbb',
+            markers_color: '#3680A4',
+            font_color: '#FFEA00'
+        });
+        k1.value = 42;
+
+        const k2 = new Knob('#knob-light', {
+            value_min: 0,
+            value_max: 100,
+            default_value: 0,
+            track_bg_radius: 38,
+            track_bg_width: 7,
+            linecap: 'butt',
+            track_radius: 38,
+            track_width: 7,
+            cursor: true,
+            cursor_radius: 0,
+            cursor_length: 41,
+            cursor_width: 7,
+            value_position: 94,
+            font_color: "#42A5F5"
+        });
+        k2.value = 70;
+
+    });
+
+</script>
+</html>
