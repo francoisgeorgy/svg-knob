@@ -1,9 +1,13 @@
 README.0.md
+demo*
+src/*
 .gitignore
 yarn.*
 .idea
 *.iml
 notes.md
+calculs.md
+anatomy.html
 
 # Logs
 logs

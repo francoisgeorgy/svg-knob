@@ -10,10 +10,6 @@
     "bugs": "https://github.com/francoisgeorgy/svg-knob/issues",
     "author": "François Georgy <francois.georgy@gmail.com> (http://studiocode.dev)",
     "license": "MIT",
-    "files": [
-        "README.md",
-        "dist/main.js"
-    ],
     "source": "src/index.js",
     "main": "dist/main.js",
     "module": "dist/main.mjs",
