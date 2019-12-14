@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>svg-knob anatomy</title>
     <meta name="description" content="Shows the different parts that compose svg-knob">
-    <script src="dist/main.js"></script>
+    <script src="dist/index.umd.js"></script>
     <style>
         body {
             background-color: #eeeeee;
@@ -95,7 +95,7 @@
     <div style="display:flex;margin-top:20px">
         <div id="result"></div>
         <div style="margin-left:20px">
-<pre>new Knob('#result', {
+<pre>new svgKnob('#result', {
     bg: true,
     track: true,
     track_bg: true,
@@ -110,15 +110,9 @@
 </body>
 <script>
 
-    // If the browser support ES6 modules:
-    //import Knob from './svg-knob.js';
-
-    // For browser that do not support ES6 modules yet:
-    let Knob = svgKnob.default;
-
     document.addEventListener("DOMContentLoaded", function() {
 
-        new Knob('#bg', {
+        new svgKnob('#bg', {
             bg: true,
             track: false,
             track_bg: false,
@@ -127,7 +121,7 @@
             value_text: false
         });
 
-        new Knob('#bg-border', {
+        new svgKnob('#bg-border', {
             bg: true,
             track: false,
             track_bg: false,
@@ -137,7 +131,7 @@
             value_text: false
         });
 
-        new Knob('#track-bg', {
+        new svgKnob('#track-bg', {
             bg: false,
             track: false,
             track_bg: true,
@@ -147,7 +141,7 @@
             value_text: false
         });
 
-        new Knob('#markers', {
+        new svgKnob('#markers', {
             bg: false,
             track: false,
             track_bg: false,
@@ -159,7 +153,7 @@
             markers_width: 1
         });
 
-        new Knob('#track', {
+        new svgKnob('#track', {
             bg: false,
             track: true,
             track_bg: false,
@@ -170,7 +164,7 @@
             initial_value: 42
         });
 
-        new Knob('#cursor', {
+        new svgKnob('#cursor', {
             bg: false,
             track: false,
             track_bg: false,
@@ -181,7 +175,7 @@
             initial_value: 42
         });
 
-        new Knob('#value', {
+        new svgKnob('#value', {
             bg: false,
             track: false,
             track_bg: false,
@@ -192,7 +186,7 @@
             initial_value: 42
         });
 
-        new Knob('#result', {
+        new svgKnob('#result', {
             bg: true,
             track: true,
             track_bg: true,

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>svg-knob demo</title>
     <meta name="description" content="svg-knob demos and examples">
-    <script src="dist/main.js"></script>
+    <script src="dist/index.umd.js"></script>
     <style>
         body {
             font-family: sans-serif;
@@ -56,15 +56,9 @@
 </body>
 <script>
 
-    // If the browser support ES6 modules:
-    //import Knob from './svg-knob.js';
-
-    // For browser that do not support ES6 modules yet:
-    let Knob = svgKnob.default;
-
     document.addEventListener("DOMContentLoaded", function() {
 
-        const k1 = new Knob('#knob-dark', {
+        const k1 = new svgKnob('#knob-dark', {
             label: false,
             // background disk:
             bg_radius: 32,
@@ -107,7 +101,7 @@
         });
         k1.value = 42;
 
-        const k2 = new Knob('#knob-light', {
+        const k2 = new svgKnob('#knob-light', {
             value_min: 0,
             value_max: 100,
             default_value: 0,

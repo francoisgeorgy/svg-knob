@@ -11,9 +11,9 @@
     "author": "François Georgy <francois.georgy@gmail.com> (http://studiocode.dev)",
     "license": "MIT",
     "source": "src/index.js",
-    "main": "dist/main.js",
-    "module": "dist/main.mjs",
-    "unpkg": "dist/main.umd.js",
+    "main": "dist/index.js",
+    "umd:main": "dist/index.umd.js",
+    "module": "dist/index.mjs",
     "scripts": {
         "build": "microbundle",
         "dev": "microbundle watch"

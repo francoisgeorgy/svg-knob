@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>svg-knob demo</title>
     <meta name="description" content="svg-knob demos and examples">
-    <script src="dist/main.js"></script>
+    <script src="dist/index.umd.js"></script>
     <style>
         body {
             font-family: sans-serif;
@@ -113,33 +113,27 @@
 </body>
 <script>
 
-    // If the browser support ES6 modules:
-    //import Knob from './svg-knob.js';
-
-    // For browser that do not support ES6 modules yet:
-    let Knob = svgKnob.default;
-
     document.addEventListener("DOMContentLoaded", function() {
 
         let knobs = {};
 
-        knobs['knob-default'] = new Knob('#knob-default');
+        knobs['knob-default'] = new svgKnob('#knob-default');
 
         knobs['knob-default'].setConfigValue("display_raw", true);
 
-        knobs['knob-with-bg'] = new Knob('#knob-with-bg', {
+        knobs['knob-with-bg'] = new svgKnob('#knob-with-bg', {
             cursor: true,
             bg: true,
             track_bg: true,
         });
 
-        knobs['knob-split-butt'] = new Knob('#knob-split-butt', {
+        knobs['knob-split-butt'] = new svgKnob('#knob-split-butt', {
             center_zero: true,
             value_min:-100,
             value_max:100
         });
 
-        knobs['knob-split-gap'] = new Knob('#knob-split-gap', {
+        knobs['knob-split-gap'] = new svgKnob('#knob-split-gap', {
             center_zero: true,
             angle_min: 20,
             angle_max: 340,
@@ -153,7 +147,7 @@
             track_radius: 35
         });
 
-        knobs['knob-dot-cursor-markers'] = new Knob('#knob-dot-cursor-markers', {
+        knobs['knob-dot-cursor-markers'] = new svgKnob('#knob-dot-cursor-markers', {
             bg: true,
             bg_color: 'transparent',
             bg_radius: 35,
@@ -174,13 +168,13 @@
             initial_value: 42
         });
 
-        knobs['knob-value-formatted'] = new Knob('#knob-value-formatted', {
+        knobs['knob-value-formatted'] = new svgKnob('#knob-value-formatted', {
             format: v => v.toLocaleString(undefined, {style: 'currency', currency: 'EUR'}),
             font_size: 20,
             initial_value: 42
         });
 
-        knobs['knob-value-bottom'] = new Knob('#knob-value-bottom', {
+        knobs['knob-value-bottom'] = new svgKnob('#knob-value-bottom', {
             angle_min: 20,
             angle_max: 340,
             bg: false,
@@ -198,12 +192,12 @@
             initial_value: 42
         });
 
-        knobs['knob-dark-bg'] = new Knob('#knob-dark-bg', {
+        knobs['knob-dark-bg'] = new svgKnob('#knob-dark-bg', {
             palette: 'dark'
         });
 
 
-        knobs['knob-bs2'] = new Knob('#knob-bs2', {
+        knobs['knob-bs2'] = new svgKnob('#knob-bs2', {
             label: false,
             // background disk:
             bg_radius: 32,
@@ -248,7 +242,7 @@
             font_color: '#FFEA00'
         });
 
-        knobs['knob-misc-1'] = new Knob('#knob-misc-1', {
+        knobs['knob-misc-1'] = new svgKnob('#knob-misc-1', {
             bg: true,
             bg_color: 'transparent',
             bg_radius: 35,
@@ -269,7 +263,7 @@
             initial_value: 42
         });
 
-        knobs['knob-misc-1-dark'] = new Knob('#knob-misc-1-dark', {
+        knobs['knob-misc-1-dark'] = new svgKnob('#knob-misc-1-dark', {
             bg: true,
             bg_color: 'transparent',
             bg_radius: 35,
