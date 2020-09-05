@@ -233,7 +233,7 @@
         //---------------------------------------------------------------------
         // mouse support
         let targetRect;
-        let minDeltaY;
+        let minDeltaY = 1;
 
         //---------------------------------------------------------------------
         // true if the current knob value is different from the default value
@@ -505,18 +505,18 @@
             let dy = e.deltaY;
 
             if (dy !== 0) {
-                // normalize Y delta
+
+                // initialize or normalize Y delta
                 if (minDeltaY > Math.abs(dy) || !minDeltaY) {
                     minDeltaY = Math.abs(dy);
                 }
+
+                incAngle(dy / minDeltaY * mouse_wheel_direction * config.mouse_wheel_acceleration);
+
+                // TODO: mouse speed detection (https://stackoverflow.com/questions/22593286/detect-measure-scroll-speed)
+
+                redraw();
             }
-
-            incAngle(dy / minDeltaY * mouse_wheel_direction * config.mouse_wheel_acceleration);
-
-            // TODO: mouse speed detection (https://stackoverflow.com/questions/22593286/detect-measure-scroll-speed)
-
-            redraw();
-
             return false;
         }
 
@@ -683,7 +683,7 @@
          */
         function getTrackPath() {
 
-            if (trace) console.log("getTrackPath()");
+            if (trace) console.log("getTrackPath()", angle);
 
             let p = null;
 
