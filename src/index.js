@@ -972,7 +972,6 @@
             if (!config.value_text) return;
 
             const t = getDisplayValue();
-            console.log("t", t, typeof t)
 
             if (typeof t === "number" || t.indexOf("\n") <= 0) {
                 // single line:
