@@ -894,13 +894,49 @@
             }
         }
 
-        function getFontSize(text) {
-            let m = text.length;
-            switch(true) {
-                case m < 7: return config.font_size * 0.75;
-                case m < 13: return config.font_size * 0.5;
-                default: return config.font_size * 0.33;
+        function getFontSize(text, multiline=false) {
+            if (typeof text !== "string") return config.font_size;
+            const f = 22;   // empiric value
+            let m = Math.min(f, text.length);
+            if (multiline) {
+                return config.font_size * Math.min(0.75, Math.max(((f - m) / f), 0.25));
+            } else {
+                return config.font_size * Math.max(((f - m) / f), 0.25);
             }
+
+        }
+
+        function draw_value_line1(text, multiline=false) {
+            if (trace) console.log("draw_value_line1", text);
+            svg_value_text = document.createElementNS(NS, "text");
+            svg_value_text.setAttributeNS(null, "x", `${HALF_WIDTH}`);
+            svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
+            svg_value_text.setAttribute("text-anchor", "middle");
+            svg_value_text.setAttribute("cursor", "default");
+            svg_value_text.setAttribute("font-family", config.font_family);
+            svg_value_text.setAttribute("font-size", `${getFontSize(text, multiline)}`);
+            svg_value_text.setAttribute("font-weight", `${config.font_weight}`);
+            svg_value_text.setAttribute("fill", config.font_color);
+            svg_value_text.setAttribute("class", config.class_value);
+            svg_value_text.textContent = text;
+            svg_element.appendChild(svg_value_text);
+        }
+
+        function draw_value_line2(text) {
+            if (trace) console.log("draw_value_line2", text);
+            svg_value_text2 = document.createElementNS(NS, "text");
+            svg_value_text2.setAttributeNS(null, "x", `${HALF_WIDTH}`);
+            svg_value_text2.setAttributeNS(null, "y", `${config.value_position + 4}`);
+            svg_value_text2.setAttribute("text-anchor", "middle");
+            svg_value_text2.setAttribute("cursor", "default");
+            svg_value_text2.setAttribute("font-family", config.font_family);
+            svg_value_text2.setAttribute("font-size", `${getFontSize(text, true)}`);
+            svg_value_text2.setAttribute("font-weight", `${config.font_weight}`);
+            svg_value_text2.setAttribute("fill", config.font_color);
+            svg_value_text2.setAttribute("class", config.class_value);
+            svg_value_text2.textContent = text;
+            svg_element.appendChild(svg_value_text2);
+
         }
 
         /**
@@ -913,59 +949,18 @@
             if (!config.value_text) return;
 
             const t = getDisplayValue();
-            // const t = getDisplayValue() + "\n" + "abcde";
-            console.log("t", t, typeof t)
 
             if (typeof t === "number" || t.indexOf("\n") <= 0) {
-                // single line:
 
-                console.log("single line");
-
-                svg_value_text = document.createElementNS(NS, "text");
-                svg_value_text.setAttributeNS(null, "x", `${HALF_WIDTH}`);
-                svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
-                svg_value_text.setAttribute("text-anchor", "middle");
-                svg_value_text.setAttribute("cursor", "default");
-                svg_value_text.setAttribute("font-family", config.font_family);
-                svg_value_text.setAttribute("font-size", `${config.font_size}`);
-                svg_value_text.setAttribute("font-weight", `${config.font_weight}`);
-                svg_value_text.setAttribute("fill", config.font_color);
-                svg_value_text.setAttribute("class", config.class_value);
-                svg_value_text.textContent = t;
-                svg_element.appendChild(svg_value_text);
+                if (trace) console.log("single line");
+                draw_value_line1(t)
 
             } else {
-                // two lines:
-
                 const lines = t.split("\n");
-                console.log("two lines", lines);
+                if (trace) console.log("two lines", lines);
 
-                svg_value_text = document.createElementNS(NS, "text");
-                svg_value_text.setAttributeNS(null, "x", `${HALF_WIDTH}`);
-                svg_value_text.setAttributeNS(null, "y", `${config.value_position - 12}`);
-                svg_value_text.setAttribute("text-anchor", "middle");
-                svg_value_text.setAttribute("cursor", "default");
-                svg_value_text.setAttribute("font-family", config.font_family);
-                svg_value_text.setAttribute("font-size", `${getFontSize(lines[0])}`);
-                svg_value_text.setAttribute("font-weight", `${config.font_weight}`);
-                svg_value_text.setAttribute("fill", config.font_color);
-                svg_value_text.setAttribute("class", config.class_value);
-                svg_value_text.textContent = lines[0];
-                svg_element.appendChild(svg_value_text);
-
-
-                svg_value_text2 = document.createElementNS(NS, "text");
-                svg_value_text2.setAttributeNS(null, "x", `${HALF_WIDTH}`);
-                svg_value_text2.setAttributeNS(null, "y", `${config.value_position + 4}`);
-                svg_value_text2.setAttribute("text-anchor", "middle");
-                svg_value_text2.setAttribute("cursor", "default");
-                svg_value_text2.setAttribute("font-family", config.font_family);
-                svg_value_text2.setAttribute("font-size", `${getFontSize(lines[1])}`);
-                svg_value_text2.setAttribute("font-weight", `${config.font_weight}`);
-                svg_value_text2.setAttribute("fill", config.font_color);
-                svg_value_text2.setAttribute("class", config.class_value);
-                svg_value_text2.textContent = lines[1];
-                svg_element.appendChild(svg_value_text2);
+                draw_value_line1(lines[0], true);
+                draw_value_line2(lines[1]);
             }
 
         }
@@ -982,25 +977,38 @@
             if (typeof t === "number" || t.indexOf("\n") <= 0) {
                 // single line:
 
-                console.log("single line");
+                if (trace) console.log("single line");
 
-                svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
-                svg_value_text.setAttribute("font-size", `${config.font_size}`);
-                svg_value_text.textContent = t;
+                if (svg_value_text) {
+                    svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
+                    svg_value_text.setAttribute("font-size", `${getFontSize(t)}`);
+                    svg_value_text.textContent = t;
+                }
+
+                if (svg_value_text2) {
+                    svg_element.removeChild(svg_value_text2);
+                    svg_value_text2 = null;
+                }
 
             } else {
                 // two lines:
 
                 const lines = t.split("\n");
-                console.log("two lines", lines);
+                if (trace) console.log("two lines", t, lines);
 
-                svg_value_text.setAttributeNS(null, "y", `${config.value_position - 12}`);
-                svg_value_text.setAttribute("font-size", `${getFontSize(lines[0])}`);
-                svg_value_text.textContent = lines[0];
+                if (svg_value_text) {
+                    svg_value_text.setAttributeNS(null, "y", `${config.value_position - 12}`);
+                    svg_value_text.setAttribute("font-size", `${getFontSize(lines[0], true)}`);
+                    svg_value_text.textContent = lines[0];
+                }
 
-                svg_value_text2.setAttributeNS(null, "y", `${config.value_position + 4}`);
-                svg_value_text2.setAttribute("font-size", `${getFontSize(lines[1])}`);
-                svg_value_text2.textContent = lines[1];
+                if (svg_value_text2) {
+                    svg_value_text2.setAttributeNS(null, "y", `${config.value_position + 4}`);
+                    svg_value_text2.setAttribute("font-size", `${getFontSize(lines[1], true)}`);
+                    svg_value_text2.textContent = lines[1];
+                } else {
+                    draw_value_line2(lines[1]);
+                }
             }
 
         }

@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let k = new knob(document.getElementById('knob1'), {
         format: v => {
             switch (true) {
+                case v < 1: return v;
+                case v < 5: return v.toString() + "\nno filter";
                 case v < 10: return v.toString() + "\na";
                 case v < 20: return v.toString() + "\naab";
                 case v < 30: return v.toString() + "\naabbc";
