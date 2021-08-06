@@ -229,6 +229,7 @@
         let svg_cursor = null;
         let svg_divisions = null;
         let svg_value_text = null;
+        let svg_value_text2 = null;
 
         //---------------------------------------------------------------------
         // mouse support
@@ -893,6 +894,15 @@
             }
         }
 
+        function getFontSize(text) {
+            let m = text.length;
+            switch(true) {
+                case m < 7: return config.font_size * 0.75;
+                case m < 13: return config.font_size * 0.5;
+                default: return config.font_size * 0.33;
+            }
+        }
+
         /**
          *
          */
@@ -902,18 +912,97 @@
 
             if (!config.value_text) return;
 
-            svg_value_text = document.createElementNS(NS, "text");
-            svg_value_text.setAttributeNS(null, "x", `${HALF_WIDTH}`);
-            svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
-            svg_value_text.setAttribute("text-anchor", "middle");
-            svg_value_text.setAttribute("cursor", "default");
-            svg_value_text.setAttribute("font-family", config.font_family);
-            svg_value_text.setAttribute("font-size", `${config.font_size}`);
-            svg_value_text.setAttribute("font-weight", `${config.font_weight}`);
-            svg_value_text.setAttribute("fill", config.font_color);
-            svg_value_text.setAttribute("class", config.class_value);
-            svg_value_text.textContent = getDisplayValue();
-            svg_element.appendChild(svg_value_text);
+            const t = getDisplayValue();
+            // const t = getDisplayValue() + "\n" + "abcde";
+            console.log("t", t, typeof t)
+
+            if (typeof t === "number" || t.indexOf("\n") <= 0) {
+                // single line:
+
+                console.log("single line");
+
+                svg_value_text = document.createElementNS(NS, "text");
+                svg_value_text.setAttributeNS(null, "x", `${HALF_WIDTH}`);
+                svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
+                svg_value_text.setAttribute("text-anchor", "middle");
+                svg_value_text.setAttribute("cursor", "default");
+                svg_value_text.setAttribute("font-family", config.font_family);
+                svg_value_text.setAttribute("font-size", `${config.font_size}`);
+                svg_value_text.setAttribute("font-weight", `${config.font_weight}`);
+                svg_value_text.setAttribute("fill", config.font_color);
+                svg_value_text.setAttribute("class", config.class_value);
+                svg_value_text.textContent = t;
+                svg_element.appendChild(svg_value_text);
+
+            } else {
+                // two lines:
+
+                const lines = t.split("\n");
+                console.log("two lines", lines);
+
+                svg_value_text = document.createElementNS(NS, "text");
+                svg_value_text.setAttributeNS(null, "x", `${HALF_WIDTH}`);
+                svg_value_text.setAttributeNS(null, "y", `${config.value_position - 12}`);
+                svg_value_text.setAttribute("text-anchor", "middle");
+                svg_value_text.setAttribute("cursor", "default");
+                svg_value_text.setAttribute("font-family", config.font_family);
+                svg_value_text.setAttribute("font-size", `${getFontSize(lines[0])}`);
+                svg_value_text.setAttribute("font-weight", `${config.font_weight}`);
+                svg_value_text.setAttribute("fill", config.font_color);
+                svg_value_text.setAttribute("class", config.class_value);
+                svg_value_text.textContent = lines[0];
+                svg_element.appendChild(svg_value_text);
+
+
+                svg_value_text2 = document.createElementNS(NS, "text");
+                svg_value_text2.setAttributeNS(null, "x", `${HALF_WIDTH}`);
+                svg_value_text2.setAttributeNS(null, "y", `${config.value_position + 4}`);
+                svg_value_text2.setAttribute("text-anchor", "middle");
+                svg_value_text2.setAttribute("cursor", "default");
+                svg_value_text2.setAttribute("font-family", config.font_family);
+                svg_value_text2.setAttribute("font-size", `${getFontSize(lines[1])}`);
+                svg_value_text2.setAttribute("font-weight", `${config.font_weight}`);
+                svg_value_text2.setAttribute("fill", config.font_color);
+                svg_value_text2.setAttribute("class", config.class_value);
+                svg_value_text2.textContent = lines[1];
+                svg_element.appendChild(svg_value_text2);
+            }
+
+        }
+
+        function update_value() {
+
+            if (trace) console.log("update_value", config.value_text);
+
+            if (!config.value_text) return;
+
+            const t = getDisplayValue();
+            console.log("t", t, typeof t)
+
+            if (typeof t === "number" || t.indexOf("\n") <= 0) {
+                // single line:
+
+                console.log("single line");
+
+                svg_value_text.setAttributeNS(null, "y", `${config.value_position}`);
+                svg_value_text.setAttribute("font-size", `${config.font_size}`);
+                svg_value_text.textContent = t;
+
+            } else {
+                // two lines:
+
+                const lines = t.split("\n");
+                console.log("two lines", lines);
+
+                svg_value_text.setAttributeNS(null, "y", `${config.value_position - 12}`);
+                svg_value_text.setAttribute("font-size", `${getFontSize(lines[0])}`);
+                svg_value_text.textContent = lines[0];
+
+                svg_value_text2.setAttributeNS(null, "y", `${config.value_position + 4}`);
+                svg_value_text2.setAttribute("font-size", `${getFontSize(lines[1])}`);
+                svg_value_text2.textContent = lines[1];
+            }
+
         }
 
         /**
@@ -977,7 +1066,8 @@
 
             if (svg_value_text) {
                 if (trace) console.log("redraw svg_value_text");
-                svg_value_text.textContent = getDisplayValue();
+                // svg_value_text.textContent = getDisplayValue();
+                update_value();
             }
         }
 
