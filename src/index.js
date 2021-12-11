@@ -73,15 +73,31 @@
 
         let svg_element;
 
+        let centerX = HALF_WIDTH;
+        let centerY = HALF_HEIGHT;
+
+        let vbWidth = VIEWBOX_WIDTH;
+
         if (typeof elem === "string" || elem instanceof String) {
             elem = document.querySelector(elem);
         }
 
-        if (elem.nodeName.toLowerCase() === "svg") {
+        let nodeType = elem.nodeName.toLowerCase();
+
+        if (nodeType === "g") {
+            // need to insert in into SVG element
             svg_element = elem;
-        } else {
+            let bbox = svg_element.getBBox();
+
+            centerX = bbox.x + bbox.width * 0.5;
+            centerY = bbox.y + bbox.height * 0.5;
+
+            vbWidth = bbox.width;
+        } else if (nodeType === "div") {
             svg_element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             elem.appendChild(svg_element);
+        } else {
+            throw "Unsupported element type for creating knob, should be a div or an SVG g element!";
         }
 
         // For the user convenience, the label can be set with the "data-label" attribute.
@@ -186,17 +202,19 @@
         //---------------------------------------------------------------------
         // Terminates the SVG element setup:
 
-        let viewbox_height;
-        if (config.label || (config.value_position >= (100 - (config.font_size / 2)))) {
-            // make some room for the label or the value that we want to display below the knob
-            viewbox_height = 120;
-        } else {
-            viewbox_height = 100;
-        }
-
         // For the use of null argument with setAttributeNS, see https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course#Scripting_in_namespaced_XML
         svg_element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-        svg_element.setAttributeNS(null, "viewBox", `0 0 ${VIEWBOX_WIDTH} ${viewbox_height}`);
+
+        if (vbWidth === VIEWBOX_WIDTH) {
+            let viewbox_height;
+            if (config.label || (config.value_position >= (vbWidth - (config.font_size / 2)))) {
+                // make some room for the label or the value that we want to display below the knob
+                viewbox_height = 120;
+            } else {
+                viewbox_height = 100;
+            }
+            svg_element.setAttributeNS(null, "viewBox", `0 0 ${VIEWBOX_WIDTH} ${viewbox_height}`);
+        }
 
         // Center of arc in knob coordinates and in ViewPort"s pixels relative to the <svg> ClientBoundingRect.
         let arcCenterXPixels = 0;
@@ -633,8 +651,8 @@
             let x = Math.cos(a) * r;
             let y = Math.sin(a) * r;
             return {
-                x: config.rotation === CW ? (HALF_WIDTH + x) : (HALF_WIDTH - x),
-                y: HALF_HEIGHT - y
+                x: config.rotation === CW ? (centerX + x) : (centerX - x),
+                y: centerY - y
             }
         }
 
@@ -735,8 +753,8 @@
             // back disk:
             //
             svg_bg = document.createElementNS(NS, "circle");
-            svg_bg.setAttributeNS(null, "cx", `${HALF_WIDTH}`);
-            svg_bg.setAttributeNS(null, "cy", `${HALF_HEIGHT}`);
+            svg_bg.setAttributeNS(null, "cx", `${centerX}`);
+            svg_bg.setAttributeNS(null, "cy", `${centerY}`);
             svg_bg.setAttributeNS(null, "r", `${config.bg_radius}`);
             svg_bg.setAttribute("fill", `${config.bg_color}`);
             svg_bg.setAttribute("stroke", `${config.bg_border_color}`);
