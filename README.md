@@ -4,6 +4,9 @@ A flexible and customizable knob for your web applications.
 
 Open the `anatomy.html` file to view a description of how the knob is constructed.
 
+Alternatively, open the `demo_svg_group.html` file for additional example of attaching knob functionality to a 
+pre-made svg element. 
+
 ## Usage
 
 Check the `demo.html` file for examples.
@@ -245,6 +248,7 @@ Quick example for a svg-knob and a linked div displaying the value transmitted t
 - log scale
 - predefined positions
 - contextual menu
+- cleaner demo for drawing onto svg group element case
 
 
 ## License
